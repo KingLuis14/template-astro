@@ -1,0 +1,345 @@
+---
+import { Icon } from "astro-icon/components";
+import sliderData from "../data/SliderImg";
+---
+
+<section class="Slider" id="Slider">
+    <ul class="Slider__lista" id="SliderLista" data-autoplay="true">
+        {
+            sliderData.map(({ img, alt }, index) => {
+                return (
+                    <li
+                        class:list={[`Slider__item`, { active: index === 0 }]}
+                        data-moveTransition={`-${(index + 1) * 100}%`}
+                    >
+                        {img.map((imagen) => {
+                            return <img src={`/img/${imagen}`} {alt} />;
+                        })}
+                    </li>
+                );
+            })
+        }
+    </ul>
+    <div class="Slider__wrapper">
+        <article class="Slider__content">
+            <h1>Titulo</h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Perspiciatis necessitatibus tempora culpa saepe corporis
+                possimus nemo dolorem incidunt pariatur.
+            </p>
+        </article>
+    </div>
+    <button class="Slider__btnMoveLeft" id="MoveLeft">
+        <Icon name="ArrowIcon" size={25} />
+    </button>
+    <button class="Slider__btnMoveRigth" id="MoveRigth">
+        <Icon name="ArrowIcon" size={25} />
+    </button>
+    <nav class="Slider__nav" id="SliderDots">
+        {
+            sliderData.map((_, index) => {
+                return (
+                    <button
+                        class:list={[`Slider__dot`, { active: index === 0 }]}
+                        data-moveTransition={`-${(index + 1) * 100}%`}
+                    />
+                );
+            })
+        }
+    </nav>
+</section>
+
+<style lang="scss">
+    .Slider {
+        height: 100vmin;
+        min-height: 70svh;
+        position: relative;
+        overflow-x: scroll;
+        scrollbar-width: none;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #100077c3;
+            z-index: 5;
+        }
+
+        &__lista {
+            --Move: 0;
+            --transition: none;
+
+            position: absolute;
+            inset: 0;
+            display: flex;
+            transition: var(--transition) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(var(--Move));
+        }
+
+        &__item {
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        &__wrapper {
+            height: 100%;
+            display: grid;
+            position: relative;
+            z-index: 10;
+        }
+
+        &__content {
+            color: white;
+            width: min(90%, 1000px);
+            margin-inline: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            text-align: center;
+
+            > p {
+                width: min(93%, 70ch);
+                margin-inline: auto;
+            }
+        }
+
+        &__btnMoveLeft {
+            position: absolute;
+            top: 50%;
+            left: 2vw;
+            transform: translateY(-50%);
+            z-index: 20;
+            border-radius: 50%;
+            outline: 2px solid white;
+            color: white;
+            padding: 0.3em;
+
+            > svg {
+                transform: rotate(-90deg);
+                pointer-events: none;
+            }
+        }
+        &__btnMoveRigth {
+            position: absolute;
+            top: 50%;
+            right: 2vw;
+            transform: translateY(-50%);
+            z-index: 20;
+            border-radius: 50%;
+            outline: 2px solid white;
+            color: white;
+            padding: 0.3em;
+
+            > svg {
+                transform: rotate(90deg);
+                pointer-events: none;
+            }
+        }
+
+        &__nav {
+            position: absolute;
+            display: flex;
+            left: 50%;
+            bottom: 5%;
+            transform: translateX(-50%);
+            gap: 1rem;
+            z-index: 20;
+        }
+
+        &__dot {
+            width: 15px;
+            aspect-ratio: 1;
+            outline: 2px solid white;
+            border-radius: 50%;
+
+            &.active {
+                background-color: white;
+            }
+        }
+    }
+</style>
+
+<script>
+    const $Slider = document.getElementById("Slider");
+    const $SliderLista = document.getElementById("SliderLista");
+    let ArrayItemLista = Array.from($SliderLista.children);
+    const maxItem = ArrayItemLista.length;
+    const $SliderDots = document.getElementById("SliderDots");
+    const ArrayDots = Array.from($SliderDots.children);
+    type DIRECTION = "LEFT" | "RIGHT";
+    let inInTransition = false;
+    let autoPlaySlider;
+
+    const moveSLider = (direction: DIRECTION) => {
+        $SliderLista.style.setProperty("--transition", "transform .5s");
+        const itemSliderActive = $SliderLista.querySelector(
+            ".Slider__item.active",
+        );
+        const ultimoItem = ArrayItemLista[ArrayItemLista.length - 1];
+        const primerItem = ArrayItemLista[0];
+        let $ElementToFocus = null as Element;
+
+        if (inInTransition) return;
+
+        if (direction === "LEFT") {
+            $ElementToFocus = itemSliderActive.previousElementSibling;
+
+            const DotActive = $SliderDots.querySelector(".Slider__dot.active");
+
+            if (DotActive) {
+                DotActive.classList.remove("active");
+            }
+
+            if($ElementToFocus.hasAttribute('data-itemInicio')){
+                ArrayDots[ArrayDots.length - 1].classList.add("active");
+            }else{
+                DotActive.previousElementSibling.classList.add("active");
+            }
+
+            $SliderLista.addEventListener(
+                "transitionend",
+                () => transitionSlider(direction, primerItem),
+                { once: true },
+            );
+        } else if (direction === "RIGHT") {
+            $ElementToFocus = itemSliderActive.nextElementSibling;
+            const DotActive = $SliderDots.querySelector(".Slider__dot.active");
+
+            if (DotActive) {
+                DotActive.classList.remove("active");
+            }
+
+            if($ElementToFocus.hasAttribute('data-itemFinal')){
+                ArrayDots[0].classList.add("active");
+            }else{
+                DotActive.nextElementSibling.classList.add("active");
+            }
+
+            
+
+            $SliderLista.addEventListener(
+                "transitionend",
+                () => transitionSlider(direction, ultimoItem),
+                { once: true },
+            );
+        }
+
+        const position = $ElementToFocus.getAttribute("data-moveTransition");
+
+        if (itemSliderActive) {
+            itemSliderActive.classList.remove("active");
+        }
+        $ElementToFocus.classList.add("active");
+        $SliderLista.style.setProperty("--Move", `${position}`);
+        inInTransition = true;
+    };
+
+    const transitionSlider = (direction: DIRECTION, elemento: Element) => {
+        $SliderLista.style.setProperty("--transition", "none");
+
+        if (direction === "LEFT") {
+            const primerItem = elemento;
+            const penultimoitem = ArrayItemLista[ArrayItemLista.length - 2];
+
+            if (primerItem.classList.contains("active")) {
+                primerItem.classList.remove("active");
+                $SliderLista.style.setProperty("--Move", "-400%");
+                penultimoitem.classList.add("active");
+            }
+        } else if (direction === "RIGHT") {
+            const ultimoItem = elemento;
+            const itemInicio = ArrayItemLista[1];
+
+            if (ultimoItem.classList.contains("active")) {
+                ultimoItem.classList.remove("active");
+                $SliderLista.style.setProperty("--Move", "-100%");
+                itemInicio.classList.add("active");
+                
+            }
+        }
+        inInTransition = false;
+    };
+
+    const loadSliderInitial = () => {
+        $SliderLista.style.setProperty("--transition", "none");
+        $SliderLista.style.setProperty("--Move", "-100%");
+        const ultimoItem = ArrayItemLista[ArrayItemLista.length - 1].cloneNode(
+            true,
+        ) as HTMLElement;
+        ultimoItem.setAttribute("data-moveTransition", `0`);
+        ultimoItem.setAttribute('data-itemInicio','true');
+
+        const primerItem = ArrayItemLista[0].cloneNode(true) as HTMLElement;
+        primerItem.classList.remove("active");
+        primerItem.setAttribute(
+            "data-moveTransition",
+            `-${(ArrayItemLista.length + 1) * 100}%`,
+        );
+        primerItem.setAttribute('data-itemFinal','true');
+
+        $SliderLista.prepend(ultimoItem);
+        $SliderLista.append(primerItem);
+        ArrayItemLista = Array.from($SliderLista.children);
+    };
+
+    $Slider.addEventListener("click", (e) => {
+        const ElementActual = e.target as HTMLElement;
+
+        if (ElementActual.id === "MoveLeft") {
+            moveSLider("LEFT");
+        }
+        if (ElementActual.id === "MoveRigth") {
+            moveSLider("RIGHT");
+        }
+        if (ElementActual.classList.contains("Slider__dot")) {
+            const DotActive = $SliderDots.querySelector(".Slider__dot.active");
+            const itemSliderActive = $SliderLista.querySelector(
+                ".Slider__item.active",
+            );
+
+            $SliderLista.style.setProperty("--transition", "transform .5s");
+            const moveTransition = ElementActual.getAttribute(
+                "data-moveTransition",
+            );
+            $SliderLista.style.setProperty("--Move", `${moveTransition}`);
+
+            if (itemSliderActive) {
+                itemSliderActive.classList.remove("active");
+            }
+            if (DotActive) {
+                DotActive.classList.remove("active");
+            }
+
+            ElementActual.classList.add("active");
+            ArrayItemLista[ArrayDots.indexOf(ElementActual) + 1].classList.add(
+                "active",
+            );
+        }
+    });
+
+    loadSliderInitial();
+
+    const startAutoPlay = () => {
+        if ($SliderLista.getAttribute("data-autoPlay") === "false") return;
+        autoPlaySlider = setInterval(() => {
+            moveSLider("RIGHT");
+        }, 5000);
+    };
+
+    const stopAutoPlay = () => {
+        if ($SliderLista.getAttribute("data-autoPlay") === "false") return;
+        clearInterval(autoPlaySlider);
+    };
+
+    startAutoPlay();
+
+    $Slider.addEventListener("mouseenter", () => {
+        // stopAutoPlay();
+    });
+
+    $Slider.addEventListener("mouseleave", () => {
+        // startAutoPlay();
+    });
+</script>

@@ -1,0 +1,82 @@
+<section class="Slider">
+    <div style="height: 100%; overflow: hidden;">
+        <ul class="Slider__lista" id="SliderLista">
+            <li class="Slider__item">
+                <img src="/img/about.webp" alt="" />
+            </li>
+            <li class="Slider__item">
+                <img src="/img/about2.webp" alt="" />
+            </li>
+            <li class="Slider__item">
+                <img src="/img/banner.webp" alt="" />
+            </li>
+            <li class="Slider__item">
+                <img src="/img/cta.webp" alt="" />
+            </li>
+        </ul>
+    </div>
+    <!-- <button id="MoveLeft">izq</button>
+    <button id="MoveRigth">der</button> -->
+</section>
+
+<style lang="scss">
+    .Slider {
+        height: 100vmin;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #100077c3;
+        }
+
+        &__lista {
+            --Move: 0;
+            --transition: transform 0.5s;
+
+            display: flex;
+            height: 100%;
+            transform: translateX(var(--Move));
+            transition: var(--transition);
+        }
+
+        &__item {
+            width: 100%;
+            flex-shrink: 0;
+        }
+    }
+</style>
+
+<script>
+    const $SliderLista = document.getElementById("SliderLista");
+
+    // const getsliderValuePosition = () => {
+    //     return Number(
+    //         $SliderLista.style.getPropertyValue("--Move").replace("px", ""),
+    //     );
+    // };
+
+    const transition = () => {
+        $SliderLista.style.setProperty("--transition", "none");
+        $SliderLista.style.setProperty("--Move", "0");
+        $SliderLista.appendChild($SliderLista.firstElementChild);
+    };
+
+    const moveSliderAutoPlay = () => {
+        $SliderLista.style.setProperty("--transition", "transform .5s");
+        $SliderLista.style.setProperty("--Move", `-100%`);
+        $SliderLista.addEventListener("transitionend", transition);
+    };
+
+    // document.addEventListener("click", (e)=>{
+    //     const Element = e.target as HTMLElement;
+
+    //     if(Element.id === 'MoveLeft'){
+    //     }
+    //     if(Element.id === 'MoveRigth'){
+    //     }
+    // })
+
+    setInterval(moveSliderAutoPlay, 5000);
+</script>
