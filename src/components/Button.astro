@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type VARIANT = "primary" | "outline";
+
+interface Props extends HTMLAttributes<"a"> {
+    classUtilities?: string;
+    classBlock?: string;
+    variant?: VARIANT;
+}
+
+const { classBlock, classUtilities, href, variant, ...attrs } = Astro.props;
+---
+
+<a
+    {href}
+    class:list={[classBlock, "button", classUtilities]}
+    {...{ "data-type": variant }}
+    {...attrs}
+>
+    <slot />
+</a>
+
+<style lang="scss">
+
+    @use "../scss/settings/" as *;
+
+    .button {
+        background-color: $color-primary-600;
+        color: $color-neutral-000;
+        font-weight: $fw-600;
+        
+        padding: 0.6em 1.7em;
+        border-radius: .25em;
+        
+    
+
+        &[data-type="outline"] {
+            background-color: crimson;
+
+            &:is(:hover, :focus){
+                background-color: $color-primary-800;
+            }
+        }
+
+        &:is(:hover, :focus){
+                background-color: $color-primary-800;
+            }
+    }
+</style>

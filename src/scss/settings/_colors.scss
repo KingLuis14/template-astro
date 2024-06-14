@@ -1,0 +1,45 @@
+
+$color-white: #fff;
+$color-black: #000;
+$color-black-500: #8b8b8b;
+$color-cyan: #0afdd1;
+$color-blue-100: #ebecff;
+$color-blue-600: #0710cd;
+$color-blue-800: #060a53;
+$color-blue-900: #04051a;
+
+
+$light : (
+    "neutral": (
+        "000" : $color-white,
+        "500" : $color-black-500,
+        "950" : $color-black,
+    ),
+
+    "contrast":(
+        "100" : $color-cyan,
+    ),
+
+    "primary":(
+        "100" : $color-blue-100,
+        "600" : $color-blue-600,
+        "800" : $color-blue-800,
+        "900" : $color-blue-900,
+    )
+);
+
+
+
+
+
+$color-neutral-000 : var(--neutral-000);
+$color-neutral-400 : var(--neutral-400);
+$color-neutral-950 : var(--neutral-950);
+$color-contrast-100 : var(--contrast-100);
+$color-primary-100 : var(--primary-100);
+$color-primary-600 : var(--primary-600);
+$color-primary-800 : var(--primary-800);
+$color-primary-900 : var(--primary-900);
+
+
+$theme : $light;

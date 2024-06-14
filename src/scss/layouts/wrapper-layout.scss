@@ -1,0 +1,13 @@
+@use "../settings/" as *;
+
+
+.wrapper-layout{
+    --max-width: #{$wrapper-layout-max-width};
+    
+    width: min(90% , var(--max-width));
+    margin-inline: auto;
+
+    &[data-type="sm"]{
+        --max-width: #{$wrapper-layout-max-width-sm};
+    }
+}   

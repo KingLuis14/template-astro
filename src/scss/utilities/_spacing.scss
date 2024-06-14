@@ -1,0 +1,35 @@
+@use "../settings/index.scss" as *;
+
+
+@each $sizes, $valueSizes in $sizes{
+    .margin{
+        &-block-#{$sizes}{
+            margin-block: $valueSizes;
+        }
+        &-block-start-#{$sizes}{
+            margin-block-start: $valueSizes;
+        }
+        &-block-end-#{$sizes}{
+            margin-block-end: $valueSizes;
+        }
+        &-inline-#{$sizes}{
+            margin-inline: $valueSizes;
+        }
+        &-inline-start-#{$sizes}{
+            margin-inline-start: $valueSizes;
+        }
+        &-inline-end-#{$sizes}{
+            margin-inline-end: $valueSizes;
+        }
+    }
+
+}
+
+
+
+.padding-section{
+    padding-block: $padding-section;
+}
+.mx-auto{
+    margin-inline: auto;
+}

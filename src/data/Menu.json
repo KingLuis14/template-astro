@@ -1,0 +1,64 @@
+[
+    
+    {
+        "item": "Balanza Electronica",
+        "url": "/balanza-electronica",
+        "child" : []
+    },
+    {
+        "item": "Balanza Digital",
+        "url": "/balanza-digital",
+        "child" : []
+    },
+    {
+        "item": "Quienes Somos",
+        "url": "/nosotros/",
+        "child" : [
+            {
+                "item": "Obras",
+                "url": "/obras/"
+            },
+            {
+                "item": "Videos Publicitarios",
+                "url": "/videos/"
+            },
+            {
+                "item": "Testimonios",
+                "url": "/testinomios/"
+            }
+            
+        ]
+    },
+    {
+        "item": "Catalogo de Productos",
+        "url": "/nosotros/",
+        "child" : [
+            {
+                "item": "Balanzas Comerciales",
+                "url": "/hbalanzas"
+            },
+            {
+                "item": "Balanzas de plataforma",
+                "url": "/balanzas"
+            },
+            {
+                "item": "Balanzas Grameras",
+                "url": "/balanzas"
+            },
+            {
+                "item": "Balanzas de precision",
+                "url": "/balanzas"
+            },
+            {
+                "item": "Balanzas Analiticas",
+                "url": "/balanzas"
+            }
+            
+        ]
+    },
+    {
+        "item": "Contacto",
+        "url": "/contacto",
+        "child" : []
+    }
+]

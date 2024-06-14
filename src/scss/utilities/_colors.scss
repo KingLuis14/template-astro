@@ -1,0 +1,15 @@
+@use "../settings/" as *;
+
+
+
+@each $typeColorKey, $typeColorMap in $theme{
+    @each $colorKey, $colorValue in $typeColorMap{
+        .color-#{$typeColorKey}-#{$colorKey}{
+            color: var(--#{$typeColorKey}-#{$colorKey});
+        }
+        .bg-color-#{$typeColorKey}-#{$colorKey}{
+            background-color: var(--#{$typeColorKey}-#{$colorKey});
+        }
+    }
+}
+

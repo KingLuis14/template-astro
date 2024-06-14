@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+interface Props extends HTMLAttributes<"li"> {
+    classBlock?: string;
+    classUtilities?: string;
+}
+
+const { classBlock, classUtilities, ...attrs } = Astro.props;
+---
+
+<li
+    class:list={["flex-container listIcon", classBlock, classUtilities]}
+    {...attrs}
+>
+    <slot />
+</li>
+
+<style lang="scss">
+    .listIcon {
+        width: fit-content;
+        --flex-gap: 0.4rem;
+        align-items: center;
+       
+    }
+</style>

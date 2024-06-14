@@ -1,0 +1,335 @@
+---
+import LayoutWrapper from "@/components/LayoutWrapper.astro";
+import { Icon } from "astro-icon/components";
+
+interface Item {
+    item: string;
+    url: string;
+    child?: Item[];
+}
+
+interface Props {
+    ArrayItems: Item[];
+}
+
+const { ArrayItems } = Astro.props;
+---
+
+<header class="bg-color-primary-950" id="header-main">
+    <LayoutWrapper
+        classBlock="header-wrapper"
+        data-overlay="false"
+        id="Navbar-Overlay"
+    >
+        <a href="/">
+            <img class="Logo" src="/Dev.svg" alt="logo enrique calero" />
+        </a>
+        <nav
+            class="Navbar | bg-color-primary-950"
+            aria-expanded="false"
+            id="Navbar-main"
+        >
+            <ul class="Navbar__list">
+                {
+                    ArrayItems.map(({ item, url, child }) => {
+                        return (
+                            <li class="Navbar__item">
+                                {child && child.length > 0 ? (
+                                    <span
+                                        class="Navbar__link"
+                                        style="user-select: none;"
+                                    >
+                                        {item}
+                                    </span>
+                                ) : (
+                                    <a class="Navbar__link" href={`${url}`}>
+                                        {item}
+                                    </a>
+                                )}
+                                {child && child.length > 0 && (
+                                    <div
+                                        class="subNavbar-wrapper"
+                                        aria-expanded="false"
+                                    >
+                                        <ul class="Navbar__list subNavbar">
+                                            {child.map(({ item, url }) => {
+                                                return (
+                                                    <li class="Navbar__item | fs-small">
+                                                        <a
+                                                            class="Navbar__link"
+                                                            href={`${url}`}
+                                                        >
+                                                            {item}
+                                                        </a>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
+                                )}
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+            <button class="btn-Close" id="btn-Close" data-show="false">
+                <Icon name="BtnClose" size={18} />
+            </button>
+        </nav>
+        <button class="btn-Toogle" id="btn-Toogle" aria-controls="Navbar-main">
+            <Icon name="BtnToogle" size={18} />
+        </button>
+    </LayoutWrapper>
+</header>
+
+<style lang="scss">
+    @use "../scss/settings/" as *;
+    $breakpoint: 768px;
+
+    header {
+        position: fixed;
+        top: 0;
+        display: grid;
+        align-content: center;
+        padding-block: 8px;
+        z-index: 1000;
+        width: 100%;
+        height: var(--alto-header);
+        transition: background-color 0.5s;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 5px 10px #0000001a;
+
+        &.scroll {
+            background-color: rgb(255, 255, 255);
+        }
+    }
+
+    .header-wrapper {
+        display: flex;
+        justify-content: space-between;
+
+        &[data-overlay="true"]::before {
+            content: "";
+            position: fixed;
+            height: 100vh;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.282);
+
+            @include media-Query(tablet) {
+                content: none;
+            }
+        }
+    }
+
+    .Logo {
+        height: 100%;
+        width: auto;
+    }
+
+    .Navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 60%;
+        height: 100vh;
+        transition: transform 0.3s;
+        transform: translateX(100%);
+        padding: 5px 15px;
+        background-color: white;
+        overflow-y: auto;
+
+        &[aria-expanded="true"] {
+            transform: translateX(0);
+        }
+
+        &__item {
+            position: relative;
+
+            @include media-Query(tablet) {
+                &:hover > div .subNavbar {
+                    display: flex;
+                }
+            }
+        }
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+
+            &.subNavbar {
+                overflow: hidden;
+
+                @include media-Query(tablet) {
+                    position: absolute;
+                    overflow: visible;
+                    top: 100%;
+                    display: none;
+                    flex-direction: column;
+                    gap: 0;
+                    align-items: start;
+                    // background-color: rgb(255, 245, 245);
+                    background-color: rgb(255, 255, 255);
+                    border: 1px solid rgba(0, 0, 0, 0.144);
+                    height: auto;
+                }
+            }
+
+            @include media-Query(tablet) {
+                flex-direction: row;
+                align-items: center;
+                height: 100%;
+                gap: 15px;
+            }
+        }
+
+        &__link {
+            display: block;
+            padding: 1em;
+            font-weight: 400;
+            color: $color-neutral-950;
+            @include media-Query(tablet) {
+                padding: 0.5em 1em;
+            }
+        }
+
+        @media (width > $breakpoint) {
+            position: static;
+            width: auto;
+            height: auto;
+            transition: none;
+            transform: translateX(0);
+            background-color: transparent;
+            padding: 0;
+            overflow: visible;
+        }
+    }
+
+    .subNavbar-wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.5s;
+
+        &[aria-expanded="true"] {
+            grid-template-rows: 1fr;
+        }
+    }
+
+    .btn-Toogle {
+        display: flex;
+        padding: 7px;
+        align-self: center;
+        border: none;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: #0f1526;
+
+        @media (width > $breakpoint) {
+            display: none;
+        }
+    }
+
+    .btn-Close {
+        background-color: rgb(239, 239, 239);
+        color: #0f1526;
+        border-radius: 50%;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        padding: 10px;
+        border: none;
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+
+        &[data-show="true"] {
+            display: flex;
+        }
+
+        @media (width > $breakpoint) {
+            display: none;
+
+            &[data-show="true"] {
+                display: none;
+            }
+        }
+    }
+
+    .noTransition {
+        transition: none;
+    }
+</style>
+
+<script>
+    const $HeaderMain = document.getElementById("header-main");
+    const $BtnToogle = document.getElementById("btn-Toogle");
+    const $BtnClose = document.getElementById("btn-Close");
+    const $NavbarMain = document.getElementById("Navbar-main");
+    const $NavbarItem = $NavbarMain.querySelectorAll(".Navbar__item");
+    const $NavbarOverlay = document.getElementById("Navbar-Overlay");
+    const $SubNavbarWrapper = document.querySelector(
+        ".subNavbar-wrapper",
+    ) as HTMLElement;
+
+    $NavbarMain.addEventListener("click", (e) => {
+        const $Element = e.target as HTMLElement;
+
+        if ($Element.classList.contains("Navbar__link")) {
+            const $subNavbar = $Element.nextElementSibling;
+            const isExpanded =
+                $subNavbar.getAttribute("aria-expanded") === "true";
+            $subNavbar.setAttribute(
+                "aria-expanded",
+                isExpanded ? "false" : "true",
+            );
+            console.log($Element);
+        }
+        // $SubNavbarWrapper.setAttribute("aria-expanded", "true");
+    });
+
+    $BtnToogle.addEventListener("click", () => {
+        $NavbarOverlay.setAttribute("data-overlay", "true");
+        $NavbarMain.setAttribute("aria-expanded", "true");
+        $BtnClose.setAttribute("data-show", "true");
+    });
+    $BtnClose.addEventListener("click", () => {
+        $NavbarOverlay.setAttribute("data-overlay", "false");
+        $BtnClose.setAttribute("data-show", "false");
+        $NavbarMain.setAttribute("aria-expanded", "false");
+    });
+
+    window.addEventListener("resize", () => {
+        if ($NavbarMain.getAttribute("aria-expanded") === "false") {
+            $NavbarMain.classList.add("noTransition");
+        }
+    });
+
+    document.body.addEventListener("mouseover", () => {
+        $NavbarMain.classList.remove("noTransition");
+    });
+
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+
+    function handleScroll(scrollPos) {
+        if (scrollPos > 0) {
+            $HeaderMain.classList.add("scroll");
+        } else {
+            $HeaderMain.classList.remove("scroll");
+        }
+    }
+
+    document.addEventListener("scroll", () => {
+        lastKnownScrollPosition = window.scrollY;
+
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            // handleScroll(lastKnownScrollPosition);
+            ticking = false;
+        });
+
+        ticking = true;
+    }
+    });
+</script>

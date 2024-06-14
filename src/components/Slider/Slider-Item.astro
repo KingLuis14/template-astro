@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"li"> {
+    classUtilities?: string;
+    classBlock?: string;
+    active?: boolean;
+}
+
+const { classBlock, classUtilities, active, ...attrs } = Astro.props;
+---
+
+<li class:list={["slider__item", classBlock, classUtilities, { active: active }]} {...attrs}>
+    <slot />
+</li>
+
+<style>
+    .slider__item {
+        width: 100%;
+        flex-shrink: 0;
+    }
+</style>

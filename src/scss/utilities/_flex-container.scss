@@ -1,0 +1,11 @@
+.flex-container{
+    display: flex;
+    flex-direction: var(--flex-direction, row);
+    gap: var(--flex-gap, 1rem);
+}
+
+// .flex-container .flex-container{
+
+//     --flex-direction: initial;
+//     --flex-gap: initial;
+// }

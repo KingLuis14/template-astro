@@ -1,0 +1,14 @@
+@use "../settings/" as *;
+
+
+:root{
+    @each $typeColorKey, $typeColorMap in $theme{
+        @each $colorKey, $colorValue in $typeColorMap{
+            --#{$typeColorKey}-#{$colorKey} : #{$colorValue};
+        }
+    }
+
+    @each $font, $valueFont in $font-sizes{
+        --fs-#{$font} : #{$valueFont};
+    }
+}

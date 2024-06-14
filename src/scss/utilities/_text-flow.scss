@@ -1,0 +1,4 @@
+.textFlow > *:not(:first-child){
+    margin-block-start: var(--space , 1em);
+}
+

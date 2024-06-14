@@ -1,0 +1,52 @@
+@use '../settings/' as *;
+
+.hero {
+
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("https://imagenes.elpais.com/resizer/ryg0VAzr1f9Tf6ZP1X_EN_WjMXM=/1960x1470/filters:focal(1133x620:1143x630)/cloudfront-eu-central-1.images.arcpublishing.com/prisa/ZZIDTAAXOZEQXPZ2BP3VGO7KIY.jpg");
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &__container {
+        --_columns: var(--columns, 1);
+
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(var(--_columns), 1fr);
+        gap: 1rem;
+        min-height: 100svh;
+
+        &[data-columns="2"] {
+            @include media-Query(tablet) {
+                --columns: 2;
+            }
+        }
+    }
+
+    &__contenido {
+        display: grid;
+        justify-items: center;
+        align-content: center;
+        text-align: center;
+
+        &[data-columns="2"] {
+            @include media-Query(tablet) {
+                justify-items: start;
+                text-align: start;
+            }
+        }
+
+        > :global(p) {
+            width: min(100%, 75ch);
+            
+        }
+    }
+}

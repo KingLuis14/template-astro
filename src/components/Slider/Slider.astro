@@ -1,0 +1,215 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+    classUtilities?: string;
+    classBlock?: string;
+}
+
+const { classBlock, classUtilities, ...attrs } = Astro.props;
+---
+
+<slider-container
+    class:list={["slider", classBlock, classUtilities]}
+    {...attrs}
+>
+    <slot />
+</slider-container>
+
+<style>
+    slider-container {
+        display: block;
+        height: 100vmin;
+        min-height: 70svh;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    // Define el comportamiento para nuestro nuevo tipo de elemento HTML.
+    class Slider extends HTMLElement {
+        constructor() {
+            super();
+            type DIRECTION = "LEFT" | "RIGHT";
+            let inInTransition = false;
+
+            const $SliderList = this.querySelector(
+                ".slider__list",
+            ) as HTMLElement;
+            const $ArraySliderListItem = Array.from($SliderList.children);
+            const $CloneLastChild = $ArraySliderListItem[
+                $ArraySliderListItem.length - 1
+            ].cloneNode(true) as HTMLElement;
+            const $CloneFirstChild = $ArraySliderListItem[0].cloneNode(
+                true,
+            ) as HTMLElement;
+
+            const $SliderDots = this.querySelector(
+                ".slider__nav",
+            ) as HTMLElement;
+
+            const $ArraySliderDots = Array.from($SliderDots.children);
+
+            //botones
+            const $SliderPrev = this.querySelector(
+                ".slider__prev",
+            ) as HTMLElement;
+            const $SliderNext = this.querySelector(
+                ".slider__next",
+            ) as HTMLElement;
+
+            const getItemofArray = (
+                index: number | "initial" | "last",
+                array: any[],
+            ): Element => {
+                if (index === "initial") {
+                    return array[0];
+                } else if (index === "last") {
+                    return array[array.length - 1];
+                } else if (typeof index === "number") {
+                    return array[index];
+                } else {
+                    throw new Error("Invalid index");
+                }
+            };
+
+            const setDotSlider = (itemSliderToFocus: Element, direction: DIRECTION) => {
+                const DotActive = $SliderDots.querySelector(".slider__dot.active");
+                const firstDot = getItemofArray('initial', $ArraySliderDots);
+                const lastDot = getItemofArray('last', $ArraySliderDots);
+
+                if (DotActive) {
+                    DotActive.classList.remove("active");
+                }
+
+                if (direction === "LEFT") {
+                    if (itemSliderToFocus.hasAttribute("data-itemInicio")) {
+                        lastDot.classList.add("active");
+                    } else {
+                        DotActive.previousElementSibling.classList.add("active");
+                    }
+                } else {
+                    if (itemSliderToFocus.hasAttribute("data-itemFinal")) {
+                        firstDot.classList.add("active");
+                    } else {
+                        DotActive.nextElementSibling.classList.add("active");
+                    }
+                }
+            };
+
+            const moveSLider = (direction: DIRECTION) => {
+        if (inInTransition) return;
+
+        $SliderList.style.setProperty("--transition", "transform .5s");
+        const itemSliderActive = $SliderList.querySelector(".slider__item.active");
+        let $ElementToFocus : Element;
+
+        if (direction === "LEFT") {
+
+            $ElementToFocus = itemSliderActive.previousElementSibling;
+            setDotSlider($ElementToFocus, direction);
+            $SliderList.addEventListener( "transitionend", () => transitionSlider(direction, $CloneLastChild), { once: true });
+
+        } else if (direction === "RIGHT") {
+
+            $ElementToFocus = itemSliderActive.nextElementSibling;
+            setDotSlider($ElementToFocus, direction);
+            $SliderList.addEventListener("transitionend", () => transitionSlider(direction, $CloneFirstChild), { once: true });
+        }
+
+        const getMoveTransform = $ElementToFocus.getAttribute( "data-moveTransition" );
+
+        if (itemSliderActive) {
+            itemSliderActive.classList.remove("active");
+        }
+
+        $ElementToFocus.classList.add("active");
+        $SliderList.style.setProperty("--Move", `${getMoveTransform}`);
+
+        
+        inInTransition = true;
+    };
+
+    const transitionSlider = (direction: DIRECTION, elemento: Element) => {
+        $SliderList.style.setProperty("--transition", "none");
+
+        if (direction === "LEFT") {
+            const primerItem = elemento;
+
+            if (primerItem.classList.contains("active")) {
+                primerItem.classList.remove("active");
+                $SliderList.style.setProperty("--Move", `${getItemofArray('last', $ArraySliderListItem).getAttribute('data-moveTransition')}`);
+                getItemofArray('last', $ArraySliderListItem).classList.add("active");
+            }
+
+        } else if (direction === "RIGHT") {
+            const ultimoItem = elemento;
+
+            if (ultimoItem.classList.contains("active")) {
+                ultimoItem.classList.remove("active");
+                $SliderList.style.setProperty("--Move", `${getItemofArray('initial', $ArraySliderListItem).getAttribute('data-moveTransition')}`);
+                getItemofArray('initial',$ArraySliderListItem).classList.add("active");
+            }
+        }
+
+        inInTransition = false;
+    };
+
+            const loadSliderInitial = () => {
+                $SliderList.style.setProperty("--transition", "none");
+                $SliderList.style.setProperty("--Move", "-100%");
+
+                $CloneLastChild.setAttribute("data-moveTransition", `0`);
+                $CloneLastChild.setAttribute("data-itemInicio", "");
+
+                $CloneFirstChild.classList.remove("active");
+                $CloneFirstChild.setAttribute(
+                    "data-moveTransition",
+                    `-${($ArraySliderListItem.length + 1) * 100}%`,
+                );
+                $CloneFirstChild.setAttribute("data-itemFinal", "");
+
+                $SliderList.prepend($CloneLastChild);
+                $SliderList.append($CloneFirstChild);
+            };
+
+            this.addEventListener("click", (e) => {
+                const $ElementActual = e.target as HTMLElement;
+
+                if ($ElementActual.classList.contains("slider__prev")) {
+                    console.log($ElementActual);
+                    moveSLider("LEFT");
+                }
+                if ($ElementActual.classList.contains("slider__next")) {
+                    moveSLider("RIGHT");
+                }
+
+                if ($ElementActual.classList.contains("slider__dot")) {
+                    const DotActive = $SliderDots.querySelector(".slider__dot.active");
+                    const itemSliderActive = $SliderList.querySelector(".slider__item.active");
+                    const moveTransition = $ElementActual.getAttribute("data-moveTransition");
+
+                    $SliderList.style.setProperty("--transition", "transform .5s");
+                    $SliderList.style.setProperty("--Move", `${moveTransition}`);
+
+                    if (itemSliderActive) {
+                        itemSliderActive.classList.remove("active");
+                    }
+                    if (DotActive) {
+                        DotActive.classList.remove("active");
+                    }
+                    $ElementActual.classList.add("active");
+                    $ArraySliderListItem[$ArraySliderDots.indexOf($ElementActual)].classList.add( "active" );
+                        
+                }
+
+            });
+
+            loadSliderInitial();
+        }
+    }
+
+    // Dile al navegador que use nuestra clase AstroHeart para elementos <astro-heart>.
+    customElements.define("slider-container", Slider);
+</script>

@@ -1,0 +1,26 @@
+$fuente : "inter";
+
+$font-sizes : (
+    superTitle: clamp(2.7rem, 2.1739rem + 1.6304vi, 3.375rem),
+    title1: clamp(1.728rem, 1.6017rem + 0.6313vi, 2.0752rem),
+    title2: clamp(1.44rem, 1.3599rem + 0.4003vi, 1.6602rem),
+    title3: clamp(1.2rem, 1.1534rem + 0.233vi, 1.3281rem),
+    normal: clamp(1rem, 0.9773rem + 0.1136vi, 1.0625rem),
+    small: clamp(0.8854rem, 0.8904rem + -0.0066vi, 0.8889rem),
+    smallx: clamp(0.7378rem, 0.8125rem + -0.0996vi, 0.7901rem),
+);
+
+
+$fs-superTitle : var(--fs-superTitle);
+$fs-title1 : var(--fs-title1);
+$fs-title2 : var(--fs-title2);
+$fs-title3 : var(--fs-title3);
+$fs-normal : var(--fs-normal);
+$fs-small : var(--fs-small);
+$fs-smallx : var(--fs-smallx);
+
+$fw-400: 400;
+$fw-500: 500;
+$fw-600: 600;
+$fw-700: 700;
+$fw-800: 800;

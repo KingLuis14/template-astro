@@ -1,0 +1,38 @@
+<astro-heart>
+    <slot/>
+</astro-heart>
+  
+<style>
+    astro-heart{
+        background-color: red;
+        /* display: flex; */
+    }
+</style>
+
+  <script>
+    // Define el comportamiento para nuestro nuevo tipo de elemento HTML.
+    class AstroHeart extends HTMLElement {
+      constructor() {
+        super();
+        let count = 0;
+
+        
+  
+        const heartButton = this.querySelector('button');
+        const countSpan = this.querySelector('span');
+
+        const add = ()=>{
+          count++;
+          countSpan.textContent = count.toString();
+        }
+  
+        // Cada vez que el button es clickeado, actualiza el contador.
+        heartButton.addEventListener('click', () => {
+          add();
+        });
+      }
+    }
+  
+    // Dile al navegador que use nuestra clase AstroHeart para elementos <astro-heart>.
+    customElements.define('astro-heart', AstroHeart);
+  </script>

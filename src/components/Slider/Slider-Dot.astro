@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"button"> {
+    classUtilities?: string;
+    classBlock?: string;
+    active?: boolean;
+}
+
+const { classBlock, classUtilities, active,  ...attrs } = Astro.props;
+---
+
+<button class:list={["slider__dot", classBlock, classUtilities, { active: active }]} {...attrs}>
+    <slot />
+</button>
+
+<style lang="scss">
+    
+    .slider__dot {
+        width: 15px;
+        aspect-ratio: 1;
+        outline: 2px solid white;
+        border-radius: 50%;
+
+        &.active {
+            background-color: white;
+        }
+    }
+</style>

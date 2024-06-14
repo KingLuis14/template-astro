@@ -1,0 +1,9 @@
+.button{
+
+    background-color: orange;
+    padding: .5em 1.5em;
+    &[data-type="outline"]{
+        background-color: crimson;
+    }
+
+}

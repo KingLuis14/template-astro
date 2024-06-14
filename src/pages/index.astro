@@ -1,9 +1,14 @@
 ---
-import Slider from "../components/Slider.astro";
-import SliderButton from "../components/SliderButton.astro";
-import SliderDots from "../components/SliderDots.astro";
-
-
+import '../scss/base/index.scss';
+import NewCurseWordpress from "@/sections/NuevoCurso-WordPress.astro";
+import CursosHome from "@/sections/Cursos-Home.astro";
+import BalanceBeneficies from "@/sections/BalanceBeneficies.astro";
+import Products from '@/sections/Products.astro';
+import HeroHome from '@/sections/Hero-Home.astro';
+import Slider2 from '@/sections/Slider2.astro';
+import Navbar from '@/sections/Navbar.astro';
+import MenuData from "../data/Menu.json";
+import MiFooter from "../components/Footer.astro";
 ---
 
 <html lang="en">
@@ -15,42 +20,19 @@ import SliderDots from "../components/SliderDots.astro";
 		<title>Astro</title>
 	</head>
 	<body>
-		<!-- <Slider /> -->
-		<!-- <SliderButton /> -->
-		<SliderDots />
+		<Navbar ArrayItems={MenuData} />
+		<HeroHome/>
+		 <Products/>
+		<Slider2/>
+		<CursosHome/>
+		<BalanceBeneficies/>
+		<MiFooter />
 	</body>
 </html>
 
-<style is:global>
-	*{
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
+<style is:global lang="scss">
 
-	li{
-		list-style: none;
-	}
-
-	body{
-		font-family: system-ui,sans-serif;
-	}
-
-	img{
-		display: block;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+	// @use '../scss/base/' as *;
+	@use '../scss/utilities/' as *;
 	
-	}
-	button{
-		border: none;
-		background-color: rgb(185, 185, 185);
-		cursor: pointer;
-		background-color: transparent;
-	}
-
-	svg{
-		vertical-align: middle;
-	}
 </style>

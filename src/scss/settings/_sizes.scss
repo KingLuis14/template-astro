@@ -1,0 +1,19 @@
+
+
+$sizes : (
+    8: .5rem,
+    12: .75rem,
+    16: 1rem,
+    20: 1.25rem,
+    24: 1.5rem,
+    28: 1.75rem,
+    32: 2rem,
+    36: 2.25rem,
+    40: 2.5rem,
+);
+
+$wrapper-layout-max-width: 1100px;
+$wrapper-layout-max-width-sm: 900px;
+$padding-section : clamp(2rem, 1.2727rem + 3.6364vw, 5rem);
+
+

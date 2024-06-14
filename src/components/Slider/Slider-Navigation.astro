@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"nav"> {
+    classUtilities?: string;
+    classBlock?: string;
+}
+
+const { classBlock, classUtilities, ...attrs } = Astro.props;
+---
+
+<nav class:list={["slider__nav", classBlock, classUtilities]} {...attrs}>
+    <slot />
+</nav>
+
+<style lang="scss">
+    .slider__nav {
+        position: absolute;
+        display: flex;
+        left: 50%;
+        bottom: 5%;
+        transform: translateX(-50%);
+        gap: 1rem;
+        z-index: 20;
+    }
+</style>

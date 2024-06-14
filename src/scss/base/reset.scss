@@ -1,0 +1,70 @@
+@use '../settings/' as *;
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font: inherit;
+}
+
+body {
+    
+    font-family: "Inter", system-ui;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    display: inline-flex;
+}
+
+li {
+    list-style: none;
+}
+
+video,
+svg {
+    display: block;
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    vertical-align: middle;
+    object-fit: cover;
+    text-indent: -9999px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+h2, .fs-title2{
+    font-size: $fs-title2;
+}
+
+h3, .fs-title3{
+    font-size: $fs-title3;
+}
+
+h4, .fs-normal{
+    font-size: $fs-normal;
+}
+
+h5,small, .fs-small{
+    font-size: $fs-small;
+}
+
+
+

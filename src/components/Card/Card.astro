@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"article"> {
+    classUtilities?: string;
+    classBlock?: string;
+    textAlert?: string;
+}
+
+const { classBlock, classUtilities, textAlert, ...attrs } = Astro.props;
+---
+
+<article
+    class:list={[
+        "card",
+        classBlock,
+        "bg-color-neutral-000 border-radius-2",
+        classUtilities,
+    ]}
+    {...textAlert && { oferta: textAlert }}
+    {...attrs}
+>
+    <slot />
+</article>
+
+<style lang="scss">
+    @use "../../scss/settings/" as *;
+    .card {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        overflow: hidden;
+
+        &[oferta] {
+            &::after {
+                content: attr(oferta);
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 0.2em 1.2em;
+                background-color: #28a745;
+                font-weight: $fw-500;
+                font-size: $fs-title3;
+                animation: pulseGreen 1.5s infinite alternate;
+
+                @keyframes pulseGreen {
+                    0% {
+                        background-color: #28a745; 
+                    }
+                    100% {
+                        background-color: #7cfc00; 
+                    }
+                }
+            }
+        }
+    }
+</style>

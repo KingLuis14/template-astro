@@ -1,0 +1,7 @@
+.grid-container{
+    display: grid;
+    grid-template-areas: var(--grid-areas, none);
+    grid-template-columns: var(--grid-columns , none);
+    grid-template-rows: var(--grid-rows , none);
+    gap: var(--grid-gap, 1rem);
+}

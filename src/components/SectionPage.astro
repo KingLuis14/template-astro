@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'section'>{
+    classUtilities?: string;
+    classBlock? : string;
+}
+
+const { classBlock, classUtilities, ...attrs } = Astro.props;
+---
+
+<section class:list={[ classBlock , classUtilities]} {...attrs}>
+    <slot>
+        <p>aqui va tu contenido , este texto es por defecto</p>
+    </slot>
+</section>
