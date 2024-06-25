@@ -20,3 +20,23 @@
     line-height: $line-height;
     font-weight: $fw;
 }
+
+@mixin generate-utility-classes($map, $classDefinitions, $prefix: "") {
+    @each $key, $value in $map {
+      $currentPrefix: if($prefix == "", $key, "#{$prefix}-#{$key}");
+      
+      @if type-of($value) == 'map' {
+        @include generate-utility-classes($value, $classDefinitions, $currentPrefix);
+      } @else {
+        @each $classDefinition in $classDefinitions {
+          $classPrefix: map-get($classDefinition, prefix);
+          $cssProperty: map-get($classDefinition, property);
+  
+          .#{$classPrefix}-#{$currentPrefix} {
+            #{$cssProperty}: var(--color-#{$currentPrefix});
+          }
+        }
+      }
+    }
+  }
+  

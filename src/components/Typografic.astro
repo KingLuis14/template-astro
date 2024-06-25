@@ -1,0 +1,50 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+const typogtafic = {
+    defaultClass: "wrapper",
+    variants: {
+        theme1: "color-black-000",
+        theme2: "color-white-000",
+        theme3: "color-primary-600",
+    },
+    size: {
+        superTitle: 'fs-superTitle',
+        title2: 'fs-title2',
+        title3: 'fs-title3',
+        normal: 'fs-normal',
+        small: 'fs-small',
+    },
+    align : {
+        left: 'text-start',
+        center: 'text-center',
+        end: 'text-end',
+    },
+    weigth : {
+        "400" : 'fw-400',
+        "500" : 'fw-500',
+        "600" : 'fw-600',
+        "700" : 'fw-700',
+        "800" : 'fw-800',
+    }
+};
+
+type TypographicVariants = keyof typeof typogtafic.variants;
+type SizeVariants = keyof typeof typogtafic.size;
+type AlignVariants = keyof typeof typogtafic.align;
+type WeigthVariants = keyof typeof typogtafic.weigth;
+
+type Props<Tag extends HTMLTag> = Polymorphic<{
+    as: Tag;
+    variant?: TypographicVariants ;
+    size? : SizeVariants;
+    aling? : AlignVariants ;
+    weigth? : WeigthVariants ;
+}>;
+
+const { as: Tag, variant = 'theme1', size, aling , weigth, ...props } = Astro.props as Props<HTMLTag>;
+---
+
+<Tag class:list={[typogtafic.variants[variant] , typogtafic.size[size] , typogtafic.align[aling] , typogtafic.weigth[weigth]]}  {...props} >
+    <slot/>
+</Tag>

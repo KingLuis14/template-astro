@@ -1,4 +1,3 @@
-
 $color-white: #fff;
 $color-black: #000;
 $color-black-500: #8b8b8b;
@@ -9,24 +8,19 @@ $color-blue-800: #060a53;
 $color-blue-900: #04051a;
 
 
-$light : (
-    "neutral": (
-        "000" : $color-white,
-        "500" : $color-black-500,
-        "950" : $color-black,
-    ),
+$light : ("neutral": ("000" : $color-white,
+    "500" : $color-black-500,
+    "950" : $color-black,
+  ),
 
-    "contrast":(
-        "100" : $color-cyan,
-    ),
+  "contrast":("100" : $color-cyan,
+  ),
 
-    "primary":(
-        "100" : $color-blue-100,
-        "600" : $color-blue-600,
-        "800" : $color-blue-800,
-        "900" : $color-blue-900,
-    )
-);
+  "primary":("100" : $color-blue-100,
+    "600" : $color-blue-600,
+    "800" : $color-blue-800,
+    "900" : $color-blue-900,
+  ));
 
 
 
@@ -42,4 +36,54 @@ $color-primary-800 : var(--primary-800);
 $color-primary-900 : var(--primary-900);
 
 
-$theme : $light;
+
+
+// ====================================
+
+$colors: (
+  
+  "white": ("000":#ffffff,
+    "100":#f3f3f3,
+  ),
+  "black": ("000":#000,
+    "100":#1a1a1a,
+  ),
+  "secondary":("300" : #ffdc30,
+    "500" : #eab108,
+  ),
+  "green":("100" : #edfef4,
+    "200" : #d8fde8,
+    "500" : #1fbc61,
+    "700" : #148143,
+  ),
+  "contrast":("1" : #181b2e,
+  "2" : #28a745,
+  )
+);
+
+$semanticTokens: (
+  "background": (primary: var(--colors-primary),
+    secondary:  var(--background-primary),
+  ),
+  "text": (color-default: var(--colors-primary),
+    color-default-invert: var(--colors-success),
+  )
+);
+
+$componentTokens: (
+  "wrapper" : (layout-max-width : 1100px,
+    layout-max-width-sm : 900px,
+  ),
+  "button":(background-color: var(--background-primary),
+    text-color:  var(--background-primary),
+    border-color:  var(--background-primary),
+
+    "theme":("primary": (text-color: map-get($semanticTokens, text, color-default-invert),
+        background-color: map-get($semanticTokens, background, secondary),
+      ),
+      "secondary": (text-color: map-get($semanticTokens, text, success),
+        background-color: map-get($semanticTokens, background, secondary),
+      )))
+);
+
+$theme : $colors;

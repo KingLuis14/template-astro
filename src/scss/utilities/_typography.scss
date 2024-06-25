@@ -1,10 +1,6 @@
 @use '../settings/' as *;
 
-@each $font, $valueFont in $font-sizes{
-    .fs-#{$font}{
-        font-size: $valueFont;
-    }
-}
+
 .fw-400{
     font-weight: $fw-400;
 }

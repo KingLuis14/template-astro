@@ -1,0 +1,26 @@
+@use '../settings/' as *;
+
+
+.split {
+    display: grid;
+    &__wrapper {
+        --grid-areas: "imagen" 
+                        "content";
+        --grid-columns: 1fr;
+        align-items: center;
+
+        > :nth-child(1){
+            grid-area: content;  
+        }
+
+        > :nth-child(2){
+            grid-area: imagen;  
+        }
+
+       @include media-Query(tablet) {
+        --grid-columns: 1fr 1fr;
+        --grid-areas: "imagen content";
+       }
+      
+    }
+}

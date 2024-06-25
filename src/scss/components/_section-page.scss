@@ -1,0 +1,13 @@
+@use '../settings/' as *;
+
+.section-page{
+    --_background : var(--background, #ffffff) ;
+    background-color: var(--_background);
+
+    &--theme1{
+        --background: var(--colors-success);
+    }
+    &--theme2{
+        --background : var(--colors-primary);
+    }
+}

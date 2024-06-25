@@ -1,14 +1,9 @@
 ---
-import '../scss/base/index.scss';
-import NewCurseWordpress from "@/sections/NuevoCurso-WordPress.astro";
-import CursosHome from "@/sections/Cursos-Home.astro";
-import BalanceBeneficies from "@/sections/BalanceBeneficies.astro";
-import Products from '@/sections/Products.astro';
+import '../scss/index.scss';
 import HeroHome from '@/sections/Hero-Home.astro';
-import Slider2 from '@/sections/Slider2.astro';
 import Navbar from '@/sections/Navbar.astro';
 import MenuData from "../data/Menu.json";
-import MiFooter from "../components/Footer.astro";
+import NewCourse from '@/sections/NewCourse.astro';
 ---
 
 <html lang="en">
@@ -20,19 +15,13 @@ import MiFooter from "../components/Footer.astro";
 		<title>Astro</title>
 	</head>
 	<body>
-		<Navbar ArrayItems={MenuData} />
-		<HeroHome/>
-		 <Products/>
-		<Slider2/>
-		<CursosHome/>
-		<BalanceBeneficies/>
-		<MiFooter />
+		<!-- <Navbar ArrayItems={MenuData} />
+		<HeroHome/> -->
+		<NewCourse />
 	</body>
 </html>
 
 <style is:global lang="scss">
 
-	// @use '../scss/base/' as *;
-	@use '../scss/utilities/' as *;
 	
 </style>
