@@ -11,6 +11,7 @@
     padding: .5em 1.5em;
     border-radius: .25em;
     color: var(--_text-color);
+    font-weight: 600;
 
     &:is(:hover, :focus){
         background-color: var(--_bg-color-hover);
@@ -29,6 +30,12 @@
         --bg-color :  var(--color-white-000);
         --bg-color-hover :  var(--color-white-100);
         --text-color-hover :  var(--color-black-100);
+    }
+    &--theme3{
+        --text-color :  var(--color-white-000);
+        --bg-color :  var(--color-green-500);
+        --bg-color-hover :  var(--color-green-700);
+        --text-color-hover :  var(--color-white-000);
     }
 
     &--content{

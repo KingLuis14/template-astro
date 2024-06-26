@@ -3,30 +3,59 @@ import Button from "@/components/Button.astro";
 import SectionPage from "@/components/SectionPage.astro";
 import Typografic from "@/components/Typografic.astro";
 import Wrapper from "@/components/Wrapper.astro";
+import { Icon } from "astro-icon/components";
 
 
 ---
 <SectionPage >
     <Wrapper classBlock="textFlow" align="center">
         <header class="text-center">
-            <Typografic as="h1" variant="theme3" size="superTitle" weigth="700" >Titulo 3</Typografic>
+            <Typografic as="h1" variant="theme3" size="title1" weigth="700" >Titulo 3</Typografic>
+            <Typografic as="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus aperiam.</Typografic>
         </header>
-        <Typografic as="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus aperiam, obcaecati veniam autem pariatur est aspernatur deleniti voluptatibus recusandae atque, maiores ducimus. Quibusdam recusandae expedita deserunt maxime, incidunt magnam!</Typografic>
+        <div class="grid grid-col:2 @lg:grid-col:4">
+            <div class="bg-color-white-000">
+                <Icon name="moodle" size={60} class="color-green-500"></Icon>
+                <Typografic as="p"> hola a todos</Typografic>
+            </div>
+            <div class="bg-color-green-500">
+                <Icon name="moodle" size={60} class="color-white-000"></Icon>
+                <Typografic as="p" variant="theme2"> hola a todos</Typografic>
+            </div>
+            <div class="bg-color-white-000">
+                <Icon name="moodle" size={60} class="color-green-500"></Icon>
+                <Typografic as="p" > hola a todos</Typografic>
+            </div>
+            <div class="bg-color-white-000">
+                <Icon name="moodle" size={60} class="color-green-500"></Icon>
+                <Typografic as="p" > hola a todos</Typografic>
+            </div>
+        </div>
         <Button href="https://ift.pe/" target="_blank">Ver malla</Button>
     </Wrapper>
 </SectionPage>
 <SectionPage variant="theme2">
-    <Wrapper classBlock="textFlow" style="--space: 1rem">
-        <Typografic as="h2" variant="theme2" weigth="500" aling="center">Seccion 2</Typografic>
-        <Typografic as="p" variant="theme1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus aperiam, obcaecati veniam autem pariatur est aspernatur deleniti voluptatibus recusandae atque, maiores ducimus. Quibusdam recusandae expedita deserunt maxime, incidunt magnam!</Typografic>
-        <div >
-            <Typografic as="p">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis quam nisi expedita!
-            </Typografic>
-            <Typografic as="p">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis quam nisi expedita!
-            </Typografic>
+    <Wrapper classBlock="split split--bottom-left" colors="white">
+        <div class="textFlow">
+            <Typografic as="h2" size="title1" weigth="700" >25 Años De Experiencia en Balanzas</Typografic>
+            <Typografic as="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus aperiam, obcaecati veniam autem pariatur est aspernatur deleniti voluptatibus recusandae atque, maiores ducimus. Quibusdam recusandae expedita deserunt maxime, incidunt magnam!</Typografic>
+            <Button href="https://ift.pe/" target="_blank" variant="theme2" size="content" >Ver malla</Button>
         </div>
-        <Button href="https://ift.pe/" target="_blank" variant="theme2" size="content" >Ver malla</Button>
+        <picture>
+            <img src="/img/balanza7.webp" alt="" style="aspect-ratio: 1" />
+        </picture>
     </Wrapper>
 </SectionPage>
+<SectionPage variant="theme1">
+    <Wrapper classBlock="split split--bottom-rigth" >
+        <div class="textFlow">
+            <Typografic as="h2" size="title1" weigth="700" variant="theme3" >!Queremos darte lo mejor¡</Typografic>
+            <Typografic as="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit natus aperiam, obcaecati veniam autem pariatur est aspernatur deleniti voluptatibus recusandae atque, maiores ducimus. Quibusdam recusandae expedita deserunt maxime, incidunt magnam!</Typografic>
+            <Button href="https://ift.pe/" target="_blank" variant="theme3" size="content" >Ver malla</Button>
+        </div>
+        <picture>
+            <img src="/img/balanza7.webp" alt="" style="aspect-ratio: 1" />
+        </picture>
+    </Wrapper>
+</SectionPage>
+

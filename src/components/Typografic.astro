@@ -6,10 +6,11 @@ const typogtafic = {
     variants: {
         theme1: "color-black-000",
         theme2: "color-white-000",
-        theme3: "color-primary-600",
+        theme3: "color-green-500",
     },
     size: {
         superTitle: 'fs-superTitle',
+        title1: 'fs-title1 line-heigth',
         title2: 'fs-title2',
         title3: 'fs-title3',
         normal: 'fs-normal',
@@ -42,7 +43,7 @@ type Props<Tag extends HTMLTag> = Polymorphic<{
     weigth? : WeigthVariants ;
 }>;
 
-const { as: Tag, variant = 'theme1', size, aling , weigth, ...props } = Astro.props as Props<HTMLTag>;
+const { as: Tag, variant, size, aling , weigth, ...props } = Astro.props as Props<HTMLTag>;
 ---
 
 <Tag class:list={[typogtafic.variants[variant] , typogtafic.size[size] , typogtafic.align[aling] , typogtafic.weigth[weigth]]}  {...props} >
