@@ -1,11 +1,141 @@
-.flex-container{
-    display: flex;
-    flex-direction: var(--flex-direction, row);
-    gap: var(--flex-gap, 1rem);
+@use "../settings/" as *;
+
+// Definición de los mapas para Flexbox y Grid
+$justify-content-values: (
+  "flex-start": flex-start,
+  "center": center,
+  "flex-end": flex-end,
+  "space-between": space-between,
+  "space-around": space-around,
+  "space-evenly": space-evenly,
+);
+
+$align-items-values: (
+  "flex-start": flex-start,
+  "center": center,
+  "flex-end": flex-end,
+  "baseline": baseline,
+  "stretch": stretch,
+);
+
+$justify-items-values: (
+  "start": start,
+  "center": center,
+  "end": end,
+  "stretch": stretch,
+);
+
+$align-content-values: (
+  "flex-start": flex-start,
+  "center": center,
+  "flex-end": flex-end,
+  "space-between": space-between,
+  "space-around": space-around,
+  "stretch": stretch,
+);
+
+$place-content-values: (
+  "center": center,
+  "start": start,
+  "end": end,
+  "stretch": stretch,
+  "space-between": space-between,
+  "space-around": space-around,
+  "space-evenly": space-evenly,
+);
+
+$place-items-values: (
+  "center": center,
+  "start": start,
+  "end": end,
+  "stretch": stretch,
+);
+
+.flexDirection\:column{
+  flex-direction: column;
 }
 
-// .flex-container .flex-container{
+// Generar clases utilitarias para justify-content (Flexbox)
+@each $key, $value in $justify-content-values {
+  .justifyContent\:#{$key} {
+    justify-content: $value;
+  }
+  @each $breakpoint, $size in $breakpoints {
+    @include media-Query($size) {
+      .\@#{$breakpoint}\/justifyContent\:#{$key} {
+        justify-content: $value;
+      }
+    }
+  }
+}
 
-//     --flex-direction: initial;
-//     --flex-gap: initial;
-// }
+// Generar clases utilitarias para align-items (Flexbox)
+@each $key, $value in $align-items-values {
+  .alignItems\:#{$key} {
+    align-items: $value;
+  }
+  @each $breakpoint, $size in $breakpoints {
+    @include media-Query($size) {
+      .\@#{$breakpoint}\/alignItems\:#{$key} {
+        align-items: $value;
+      }
+    }
+  }
+}
+
+// Generar clases utilitarias para justify-items (Grid)
+@each $key, $value in $justify-items-values {
+  .justifyItems\:#{$key} {
+    justify-items: $value;
+  }
+  @each $breakpoint, $size in $breakpoints {
+    @include media-Query($size) {
+      .\@#{$breakpoint}\/justifyItems\:#{$key} {
+        justify-items: $value;
+      }
+    }
+  }
+}
+
+// Generar clases utilitarias para align-content (Grid)
+@each $key, $value in $align-content-values {
+  .alignContent\:#{$key} {
+    align-content: $value;
+  }
+  @each $breakpoint, $size in $breakpoints {
+    @include media-Query($size) {
+      .\@#{$breakpoint}\/alignContent\:#{$key} {
+        align-content: $value;
+      }
+    }
+  }
+}
+
+
+// Generar clases utilitarias para place-content (Grid)
+@each $key, $value in $place-content-values {
+    .placeContent\:#{$key} {
+      place-content: $value;
+    }
+    @each $breakpoint, $size in $breakpoints {
+      @include media-Query($size) {
+        .\@#{$breakpoint}\/placeContent\:#{$key} {
+          place-content: $value;
+        }
+      }
+    }
+  }
+  
+  // Generar clases utilitarias para place-items (Grid)
+  @each $key, $value in $place-items-values {
+    .placeItems\:#{$key} {
+      place-items: $value;
+    }
+    @each $breakpoint, $size in $breakpoints {
+      @include media-Query($size) {
+        .\@#{$breakpoint}\/placeItems\:#{$key} {
+          place-items: $value;
+        }
+      }
+    }
+  }

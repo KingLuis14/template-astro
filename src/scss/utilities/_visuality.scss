@@ -1,0 +1,20 @@
+@use "../settings/" as *;
+
+.overflow\:hidden{
+    overflow-y: hidden;
+}
+
+.\@maxmd\/overflow\:hidden{
+    @include max-media-Query(md) {
+        overflow-y: hidden;
+    }
+    
+}
+
+.opacity\:1{
+    opacity: 1;
+}
+
+.pointerEvents\:auto{
+    pointer-events: auto;
+}

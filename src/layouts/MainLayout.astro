@@ -1,0 +1,35 @@
+---
+import '@/scss/index.scss';
+// import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+  titulo: string;
+  descripction: string;
+}
+const { titulo, descripction } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={descripction} />
+    <meta name="theme-color" content="#0610cc" />
+    <link rel="icon" type="image/png" href="/img/ift.svg" />
+    <title>{titulo} - Portafolio</title>
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link fetchpriority="high" rel="preload" as="font" href="/fonts/inter-latin-variable-full-normal.woff2" type="font/woff2" crossorigin="anonymous" />
+    <slot name="preload" />
+    <!-- <ViewTransitions /> -->
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<script >
+    import { main } from "@/scripts/index";
+    document.addEventListener('DOMContentLoaded', main);
+
+</script>

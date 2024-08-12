@@ -1,13 +1,13 @@
 @use '../settings/' as *;
 
 
-.fw-400{
+.fontWeigth\:400{
     font-weight: $fw-400;
 }
-.fw-600{
+.fontWeigth\:600{
     font-weight: $fw-600;
 }
-.fw-700{
+.fontWeigth\:700{
     font-weight: $fw-700;
 }
 

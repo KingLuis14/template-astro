@@ -17,11 +17,25 @@ body {
     
     font-family: "Inter", system-ui;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    background-color: hsl(0, 0%, 95%);
+
+    > footer{
+        margin-top: auto;
+        padding-block: 1rem;
+        background-color: rgb(45, 45, 45);
+        color: white;
+        text-align: center;
+        
+    }
+    
 }
 
 a {
     text-decoration: none;
-    display: inline-flex;
+    display: inline-block;
 }
 
 li {
@@ -48,6 +62,7 @@ button {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    color: inherit;
 }
 
 h1, .fs-title1{
@@ -69,5 +84,27 @@ h5,small, .fs-small{
     font-size: $fs-small;
 }
 
-
-
+input[type="radio"] {
+    /* ...existing styles */
+    display: grid;
+    place-content: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 50%;
+    
+  }
+  
+  input[type="radio"]::before {
+    content: "";
+    width: 3vmin;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #fccb1a;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    
+  }
+  
+  input[type="radio"]:checked::before {
+    transform: scale(1);
+  }

@@ -23,3 +23,9 @@
     }
   }
 }
+
+@function lowercase-first-letter($string) {
+  $first-letter: str-slice($string, 1, 1);
+  $remaining: str-slice($string, 2);
+  @return to-lower-case($first-letter) + $remaining;
+}

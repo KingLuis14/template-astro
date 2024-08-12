@@ -1,97 +1,114 @@
-const $Slider = document.getElementById("Slider");
-// const $SliderLista = document.querySelector(".slider__list") as HTMLElement;
-const $Sliders = document.querySelectorAll<HTMLElement>(".slider__list");
-let ArrayItemLista = [];
-$Sliders.forEach(($SliderLista) => {
-    ArrayItemLista = Array.from($SliderLista.children);
-});
+import {
+  addCustomEventListener,
+  getSiblings,
+  removeClassElements,
+} from "@/utils/EventListener.ts";
 
-const $SliderDots = document.querySelector(".slider__dot") as HTMLElement;
-const ArrayDots = Array.from($SliderDots.children);
-type DIRECTION = "LEFT" | "RIGHT";
-let inInTransition = false;
-let autoPlaySlider;
-const $ClonePositionInitial = ArrayItemLista[ArrayItemLista.length - 1].cloneNode(true) as HTMLElement;
-const $ClonePositionLast = ArrayItemLista[0].cloneNode(true) as HTMLElement;
+interface AccordionConfig {
+  sliderContainer: string;
+  dotSelector: string;
+  navSelector: string;
+  listSelector: string;
+  dots: number;
+}
 
-// $Sliders.forEach(($SliderLista: HTMLElement) => {
-//     const ArrayItemLista = Array.from($SliderLista.children);
-//     if (ArrayItemLista.length === 0) return; // Saltar si no hay elementos en la lista
+export class SLider {
+  private sliderContainerSelector: string;
+  private sliderDotSelector: string;
+  private sliderNavSelector: string;
+  private sliderListSelector: string;
+  private dots: number;
 
-//     const $ClonePositionInitial = ArrayItemLista[ArrayItemLista.length - 1].cloneNode(true) as HTMLElement;
-//     const $ClonePositionLast = ArrayItemLista[0].cloneNode(true) as HTMLElement;
+  private sliderContainer?: HTMLElement;
+  private sliderDot?: HTMLElement;
+  private sliderNav?: HTMLElement;
+  private sliderList?: HTMLElement;
 
-//     const loadSliderInitial = () => {
-//         $SliderLista.style.setProperty("--transition", "none");
-//         $SliderLista.style.setProperty("--Move", "-100%");
-//         console.log($SliderLista);
+  constructor(config: AccordionConfig) {
+    this.sliderContainerSelector = config.sliderContainer;
+    this.sliderDotSelector = config.dotSelector;
+    this.sliderNavSelector = config.navSelector;
+    this.sliderListSelector = config.listSelector;
+    this.dots = config.dots;
 
-//         $ClonePositionInitial.setAttribute("data-moveTransition", `0`);
-//         $ClonePositionInitial.setAttribute("data-itemInicio", "");
+    this.init();
+  }
 
-//         $ClonePositionLast.classList.remove("active");
-//         $ClonePositionLast.setAttribute("data-moveTransition", `-${(ArrayItemLista.length + 1) * 100}%`);
-//         $ClonePositionLast.setAttribute("data-itemFinal", "");
+  private init() {
+    this.initializeElements();
+    this.createButtons();
 
-//         $SliderLista.prepend($ClonePositionInitial);
-//         $SliderLista.append($ClonePositionLast);
-//     }
-//     });
+    addCustomEventListener(
+      "click",
+      this.sliderDotSelector,
+      this.selectDot.bind(this),
+      this.sliderContainer
+    );
+  }
 
+  private initializeElements() {
+    this.sliderContainer = document.querySelector(
+      this.sliderContainerSelector
+    ) as HTMLElement;
+    this.sliderDot = this.sliderContainer?.querySelector(
+      this.sliderDotSelector
+    ) as HTMLElement;
+    this.sliderNav = this.sliderContainer?.querySelector(
+      this.sliderNavSelector
+    ) as HTMLElement;
+    this.sliderList = this.sliderContainer?.querySelector(
+      this.sliderListSelector
+    ) as HTMLElement;
+  }
 
+  private selectDot = (e: Event) => {
+    const $Element = e.target as HTMLElement;
+    $Element.classList.add("active"); // activar dot
+    removeClassElements(getSiblings($Element), "active");
+    const indexDot = this.getIndexDot($Element);
 
-export const getItemofArray = (index: number | 'initial' | 'last', array: any[]): Element => {
-    if (index === 'initial') {
-        return array[0];
-    } else if (index === 'last') {
-        return array[array.length - 1];
-    } else if (typeof index === 'number') {
-        return array[index];
-    } else {
-        throw new Error('Invalid index');
-    }
-};
+    const $SliderList = this.sliderList;
+    const ArraySliderList = this.getSLider($SliderList);
 
-export const setDotSlider = (itemSliderToFocus: Element, direction: DIRECTION) => {
-    const DotActive = $SliderDots.querySelector(".Slider__dot.active");
-    const firstDot = getItemofArray('initial', ArrayDots);
-    const lastDot = getItemofArray('last', ArrayDots);
+    $SliderList.style.setProperty("--transition", "transform .5s");
+    $SliderList.style.setProperty(
+      "--Move",
+      this.getPositionValueSlider(ArraySliderList[indexDot])
+    );
+  };
 
-    if (DotActive) {
-        DotActive.classList.remove("active");
-    }
+  private getSLider = (element: HTMLElement) => {
+    return Array.from(element.children) as HTMLElement[];
+  };
 
-    if (direction === "LEFT") {
-        if (itemSliderToFocus.hasAttribute("data-itemInicio")) {
-            lastDot.classList.add("active");
-        } else {
-            DotActive.previousElementSibling.classList.add("active");
-        }
-    } else {
-        if (itemSliderToFocus.hasAttribute("data-itemFinal")) {
-            firstDot.classList.add("active");
-        } else {
-            DotActive.nextElementSibling.classList.add("active");
-        }
-    }
-};
+  private getIndexDot(element: HTMLElement): number {
+    return parseInt(element.getAttribute("data-value"), 10);
+  }
 
-export const loadSliderInitial = () => {
+  private getPositionValueSlider(element: HTMLElement): string {
+    return element.getAttribute("data-positionValue") || "";
+  }
 
-    $Sliders.forEach(($SliderLista: HTMLElement) => {
-        $SliderLista.style.setProperty("--transition", "none");
-        $SliderLista.style.setProperty("--Move", "-100%");
-        
-        $ClonePositionInitial.setAttribute("data-moveTransition", `0`);
-        $ClonePositionInitial.setAttribute("data-itemInicio", "");
-    
-        $ClonePositionLast.classList.remove("active");
-        $ClonePositionLast.setAttribute("data-moveTransition",`-${(ArrayItemLista.length + 1) * 100}%`);
-        $ClonePositionLast.setAttribute("data-itemFinal", "");
-    
-        $SliderLista.prepend($ClonePositionInitial);
-        $SliderLista.append($ClonePositionLast);
-    })
+  private createButtons() {
+    const startTime = performance.now();
+    const navs = this.sliderNav;
 
-   
-};
+    const fragment = new DocumentFragment();
+
+    Array.from({ length: this.dots }, (_, index) => {
+      const className = index === 0 ? "slider__dot active" : "slider__dot";
+
+      const button = document.createElement("button");
+      button.className = className;
+      button.setAttribute("data-value", `${index}`);
+
+      fragment.appendChild(button);
+    });
+
+    navs.append(fragment); 
+
+    const endTime = performance.now();
+    const timeTaken = endTime - startTime;
+    console.log(`Event load slider: ${timeTaken}ms`);
+  }
+}

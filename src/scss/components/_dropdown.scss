@@ -1,0 +1,35 @@
+@use "../settings/" as *;
+
+
+.dropdown {
+    &__button {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+
+      > span {
+        pointer-events: none;
+        transform: rotate(-180deg);
+        transition: transform .4s;
+
+        &.rotate{
+          transform: rotate(0);
+        }
+      }
+    }
+
+    &__content{
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s ease-out;
+        
+        > div {
+            overflow: hidden;
+        }
+
+        &.isOpen {
+            grid-template-rows: 1fr;
+        }
+    }
+  }

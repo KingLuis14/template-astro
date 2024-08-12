@@ -1,5 +1,5 @@
 ---
-import Button from "@/components/Button.astro";
+import Button from "@/components/Atoms/Button.astro";
 import LayoutWrapper from "@/components/LayoutWrapper.astro";
 import ListIconItem from "@/components/ListIconItem.astro";
 import SectionPage from "@/components/SectionPage.astro";
@@ -28,7 +28,7 @@ import { Icon } from "astro-icon/components";
                 <h2 class="title-2">WordPress desde Cero</h2>
             </header>
             <p>En este curso de Wordpress aprenderas a utilizar este programa para llevar a cabo la gestion y diseño de contenidos creativos y de alto impacto</p>
-            <Button href="https://ift.pe/" target="_blank" style="--space: 1.5rem">Ver malla</Button>
+            <Button as="a" href="https://ift.pe/" target="_blank" style="--space: 1.5rem">Ver malla</Button>
         </div>
         <picture class="wordpress-newCourse__imagen">
             <img src="/img/1.webp" class="aspect-ratio-box border-radius-2" alt="" />

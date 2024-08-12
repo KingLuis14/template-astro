@@ -1,0 +1,24 @@
+---
+import type { Product } from "@/interfaces/Product.ts";
+
+interface Props {
+    data : Product;
+}
+
+const {data} = Astro.props;
+
+const {description, img, price, title, sale} = data;
+
+---
+
+<article class="cardProduct boxShadow-1">
+    <img class="cardProduct__img" src={img} alt={title}>
+    <div class="cardProduct__content">
+        <h3 class="cardProduct__title fontWeigth:700">{title}</h3>
+        <p class="cardProduct__description">{description}</p>
+        <footer class="display:flex marginTop:auto alignItems:center columnGap:8">
+            <strong class="cardProduct__price fontWeigth:700">S/{price}</strong>
+            <a class="cardProduct__btn " href="#">Ver más</a>
+        </footer>
+    </div>
+</article>

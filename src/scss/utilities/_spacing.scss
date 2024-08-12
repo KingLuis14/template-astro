@@ -1,35 +1,36 @@
-@use "../settings/index.scss" as *;
+@use "../settings/" as *;
 
+// Definición de los mapas para Flexbox y Grid
+$margin-auto: ("Top", "Rigth", "Left", "Bottom", "Block", "Inline");
 
-@each $sizes, $valueSizes in $sizes{
-    .margin{
-        &-block-#{$sizes}{
-            margin-block: $valueSizes;
-        }
-        &-block-start-#{$sizes}{
-            margin-block-start: $valueSizes;
-        }
-        &-block-end-#{$sizes}{
-            margin-block-end: $valueSizes;
-        }
-        &-inline-#{$sizes}{
-            margin-inline: $valueSizes;
-        }
-        &-inline-start-#{$sizes}{
-            margin-inline-start: $valueSizes;
-        }
-        &-inline-end-#{$sizes}{
-            margin-inline-end: $valueSizes;
-        }
-    }
-
+@each $value in $margin-auto {
+  .margin#{$value}\:auto {
+    margin-#{lowercase-first-letter($value)}: auto;
+  }
 }
 
-
-
-.padding-section{
-    padding-block: $padding-section;
+@for $i from 1 through 12{
+  .gap\:#{$i}{
+    gap: #{$i * .25rem};
+  }
+  .rowGap\:#{$i}{
+    row-gap: #{$i * .25rem};
+  }
+  .columnGap\:#{$i}{
+    column-gap: #{$i * .25rem};
+  }
 }
-.mx-auto{
-    margin-inline: auto;
+
+@for $i from 1 through 12{
+  .padding\:#{$i}{
+    padding: #{$i * .25rem};
+  }
+  
+}
+
+.padding-section {
+  padding-block: $padding-section;
+}
+.mx-auto {
+  margin-inline: auto;
 }

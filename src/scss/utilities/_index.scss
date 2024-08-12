@@ -1,3 +1,4 @@
+@forward './display';
 @forward './aspect-ratio.scss';
 @forward './box-shadow.scss';
 @forward './spacing.scss';
@@ -9,6 +10,7 @@
 @forward './flex-columns.scss';
 @forward './grid-columns.scss';
 @forward './grid-container.scss';
-@forward './titles';
+// @forward './titles';
 @forward './split';
 @forward './border-radius.scss';
+@forward './visuality';

@@ -1,0 +1,25 @@
+@use "../settings/" as *;
+
+// Definición del mapa
+$display-types: (
+  "block": block,
+  "inline": inline,
+  "inline-block": inline-block,
+  "flex": flex,
+  "grid": grid,
+  "none": none,
+);
+
+// Generar clases utilitarias para display
+@each $key, $value in $display-types {
+  .display\:#{$key} {
+    display: $value;
+  }
+  @each $breakpoint, $size in $breakpoints {
+    @include media-Query($size) {
+      .\@#{$breakpoint}\/display\:#{$key} {
+        display: $value;
+      }
+    }
+  }
+}

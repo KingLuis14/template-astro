@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+import Wrapper from "../ui/Wrapper.astro";
+import Navbar from "./Navbar.astro";
+---
+
+<header class="header" id="header-main">
+  <Wrapper classes="display:flex justifyContent:space-between alignItems:center">
+    <a href="#" class="logo">
+       <Icon name={"freepik"} width={120} height={40}/>
+    </a>
+    <div class="overlay" id="overlay"></div>
+    <Navbar />
+    <button class="header__btn @md/display:none" id="btn-hamburger" >
+      <Icon name={"BtnToogle"} size={30}/>
+    </button>
+  </Wrapper>
+
+  
+
+</header>

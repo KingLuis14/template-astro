@@ -1,0 +1,122 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="sidebar-area" id="sidebar">
+  <button class="@md/display:none" id="btnClose" >
+    <Icon name={"BtnClose"} size={30}/>
+  </button>
+  <nav class="navbar">
+    <ul class="navbar__list @md/display:flex level level--1">
+      <li><a class="navbar__link" href="#">Inicio</a></li>
+      <li><a class="navbar__link" href="#">Nosotros</a></li>
+      <li><a class="navbar__link" href="#">Servicios</a></li>
+      <li>
+        <a class="navbar__link @md/display:none" href="#">Todas las sedes</a>
+      </li>
+      <li class="dropdown navbar__dropdown">
+        <button
+          class="dropdown__button navbar__dropdown-button "
+        >
+          Sedes<span>
+            <Icon name={"ArrowIcon"} size={20}/>
+          </span>
+        </button>
+        <div class="dropdown__content navbar__dropdown-content">
+          <div>
+            <ul class="navbar__list navbar__submenu level level--2">
+              <li><a class="navbar__link" href="#">Ica</a></li>
+              <li><a class="navbar__link" href="#">Arequipa</a></li>
+              <li><a class="navbar__link" href="#">Ancash</a></li>
+              <li class="dropdown navbar__dropdown">
+                <button
+                  class="dropdown__button navbar__dropdown-button "
+                >
+                  Lima<span><Icon name={"ArrowIcon"} size={20}/></span>
+                </button>
+                <div class="dropdown__content navbar__dropdown-content">
+                  <div>
+                    <ul class="navbar__list navbar__submenu level level--3">
+                      <li><a class="navbar__link" href="#">Cercado de Lima</a></li>
+                      <li><a class="navbar__link" href="#">Rimac</a></li>
+                      <li><a class="navbar__link" href="#">Independencia</a></li>
+                      <li><a class="navbar__link" href="#">Comas</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li><a class="navbar__link" href="#">Contacto</a></li>
+    </ul>
+  </nav>
+</div>
+
+<script>
+  const $HeaderMain: HTMLElement = document.getElementById("header-main");
+  const $SiderBar: HTMLElement = document.getElementById("sidebar");
+  const $Overlay: HTMLElement = document.getElementById("overlay");
+  const $BtnHamburger: HTMLElement = document.getElementById("btn-hamburger");
+  const $BtnClose: HTMLElement = document.getElementById("btnClose");
+
+  $BtnHamburger.addEventListener("click", () => {
+    toogleSideBar();
+    scrollHidden();
+    toogleOverlay();
+  });
+  $BtnClose.addEventListener("click", () => {
+    toogleSideBar();
+    scrollHidden();
+    toogleOverlay();
+  });
+
+  $Overlay.addEventListener("click", () => {
+    toogleSideBar();
+    scrollHidden();
+    toogleOverlay();
+  });
+
+  const toogleSideBar = () => $SiderBar.classList.toggle("active");
+  const toogleOverlay = () => {
+    $Overlay.classList.toggle("opacity:1");
+    $Overlay.classList.toggle("pointerEvents:auto");
+  };
+  const toogleAcordeon = (e: MouseEvent) => {
+    const header = e.target as HTMLElement;
+    if (!header) return;
+
+    header.classList.toggle("active");
+    const contenido = header.nextElementSibling as HTMLElement;
+    contenido.classList.toggle("isOpen");
+  };
+
+  const scrollHidden = () => document.body.classList.toggle("@maxmd/overflow:hidden");
+
+  const scrollOnChange = () => {
+    if (window.scrollY > 0) {
+      $HeaderMain.classList.add("header--theme");
+    } else {
+      $HeaderMain.classList.remove("header--theme");
+    }
+  };
+
+  scrollOnChange();
+
+  document.addEventListener("scroll", () => {
+    scrollOnChange();
+  });
+
+  document.addEventListener("click", (e: MouseEvent) => {
+
+    const $Element = e.target as HTMLElement;
+
+    if($Element.classList.contains('dropdown__button')){
+      toogleAcordeon(e);
+    }
+
+  });
+
+  
+</script>
