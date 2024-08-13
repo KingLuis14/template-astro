@@ -4,12 +4,25 @@ import {
   removeClassElements,
 } from "@/utils/EventListener.ts";
 
+interface BreakpointConfig {
+  media: number;
+  dots: number;
+}
+
+interface CreateButtonDinamic {
+  mediaQuery : MediaQueryList;
+  dots : number;
+}
+
+
+
 interface AccordionConfig {
   sliderContainer: string;
   dotSelector: string;
   navSelector: string;
   listSelector: string;
-  dots: number;
+  dots?: number;
+  breakpoint?: BreakpointConfig[];
 }
 
 export class SLider {
@@ -18,6 +31,9 @@ export class SLider {
   private sliderNavSelector: string;
   private sliderListSelector: string;
   private dots: number;
+  private breakpoints?: BreakpointConfig[];
+
+  private arrayMediaQueries?: CreateButtonDinamic[] = [];
 
   private sliderContainer?: HTMLElement;
   private sliderDot?: HTMLElement;
@@ -30,14 +46,15 @@ export class SLider {
     this.sliderNavSelector = config.navSelector;
     this.sliderListSelector = config.listSelector;
     this.dots = config.dots;
+    this.breakpoints = config.breakpoint;
 
     this.init();
   }
 
   private init() {
     this.initializeElements();
-    this.createButtons();
-
+    this.createButtons(this.dots);
+    this.updateButtonsForBreakpoint();
     addCustomEventListener(
       "click",
       this.sliderDotSelector,
@@ -89,13 +106,17 @@ export class SLider {
     return element.getAttribute("data-positionValue") || "";
   }
 
-  private createButtons() {
-    const startTime = performance.now();
+  private createButtons(dots: number) {
+    const lengthArrayList = this.getSLider(this.sliderList).length;
     const navs = this.sliderNav;
+
+    while (navs.firstChild) {
+      navs.removeChild(navs.firstChild);
+    }
 
     const fragment = new DocumentFragment();
 
-    Array.from({ length: this.dots }, (_, index) => {
+    Array.from({ length: dots || lengthArrayList }, (_, index) => {
       const className = index === 0 ? "slider__dot active" : "slider__dot";
 
       const button = document.createElement("button");
@@ -105,10 +126,65 @@ export class SLider {
       fragment.appendChild(button);
     });
 
-    navs.append(fragment); 
+    navs.append(fragment);
+  }
 
-    const endTime = performance.now();
-    const timeTaken = endTime - startTime;
-    console.log(`Event load slider: ${timeTaken}ms`);
+  private dotsBreakpoints = () => {
+    const lengthArrayList = this.getSLider(this.sliderList).length;
+
+    this.breakpoints.forEach((breakpoint, index) => {
+      if (index === 0) {
+        this.arrayMediaQueries.push(
+          {
+            mediaQuery : window.matchMedia(`(max-width: ${breakpoint.media - 1}px)`),
+            dots : this.dots || lengthArrayList
+          }
+        );
+      }
+
+      if (index === this.breakpoints.length - 1) {
+        this.arrayMediaQueries.push(
+          {
+            mediaQuery : window.matchMedia(`(min-width: ${breakpoint.media}px`),
+            dots : breakpoint.dots
+          }
+        );
+      }
+
+      const nextBreakpoint = this.breakpoints[index + 1];
+
+      if (nextBreakpoint) {
+        this.arrayMediaQueries.push(
+          {
+            mediaQuery : window.matchMedia(
+              `(min-width: ${breakpoint.media}px) and (max-width: ${
+                nextBreakpoint.media - 1
+              }px)`
+            ),
+            dots : breakpoint.dots
+          }
+        );
+      }
+    });
+
+    this.arrayMediaQueries.forEach(({mediaQuery , dots}) => {
+      mediaQuery.addEventListener("change", ()=> this.mediaDotFunction(mediaQuery, dots));
+      this.mediaDotFunction(mediaQuery, dots);
+    });
+  };
+
+  private mediaDotFunction = (e: MediaQueryList, dots : number) => {
+    if (e.matches) {
+      this.createButtons(dots);
+    }
+  };
+
+  private updateButtonsForBreakpoint() {
+    if (this.breakpoints) {
+      this.dotsBreakpoints();
+      return;
+    }
+
+    this.createButtons(this.dots);
   }
 }
