@@ -30,7 +30,7 @@
   }
 
   &__item-v2 {
-    --columns: 2;
+    --columns: 1;
     width: calc((100% - ((var(--columns) - 1) * var(--gaps))) / var(--columns));
 
     @include media-Query(md) {
