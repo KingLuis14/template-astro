@@ -2,35 +2,32 @@
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"button"> {
-    classUtilities?: string;
-    classBlock?: string;
+  classUtilities?: string;
+  classBlock?: string;
 }
 
 const { classBlock, classUtilities, ...attrs } = Astro.props;
 ---
 
-<button
-    class:list={[ "slider__next",classBlock, classUtilities]}
-    {...attrs}
->
-    <slot />
+<button class:list={["slider__next", classBlock, classUtilities]} {...attrs}>
+  <slot />
 </button>
 
 <style lang="scss">
-    .slider__next{
-        position: absolute;
-            top: 50%;
-            right: 2vw;
-            transform: translateY(-50%);
-            z-index: 20;
-            border-radius: 50%;
-            outline: 2px solid white;
-            color: white;
-            padding: 0.3em;
+  .slider__next {
+    position: absolute;
+    top: 50%;
+    right: 2vw;
+    transform: translateY(-50%);
+    z-index: 20;
+    border-radius: 50%;
+    outline: 2px solid white;
+    color: white;
+    padding: 0.3em;
 
-            > :global(svg) {
-                transform: rotate(90deg);
-                pointer-events: none;
-            }
+    > :global(svg) {
+      transform: rotate(90deg);
+      pointer-events: none;
     }
+  }
 </style>

@@ -1,18 +1,40 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
 <section class="slider slider2">
   <ul class="slider__list slider2">
-    <li class="slider__item" data-slider="0" data-positionValue="0">
+    <li class="slider__item slider__item-v2" data-slider="0" data-positionValue="0">
+      <img src="/img/balanza1.webp" alt="" />
+    </li>
+    <li class="slider__item slider__item-v2" data-slider="1" data-positionValue="-100%">
+      <img src="/img/balanza2.webp" alt="" />
+    </li>
+    <li class="slider__item slider__item-v2" data-slider="2" data-positionValue="-200%">
+      <img src="/img/balanza3.webp" alt="" />
+    </li>
+    <li class="slider__item slider__item-v2" data-slider="3" data-positionValue="-300%">
+      <img src="/img/balanza4.webp" alt="" />
+    </li>
+    <li class="slider__item slider__item-v2" data-slider="4" data-positionValue="0">
       <img src="/img/balanza5.webp" alt="" />
     </li>
-    <li class="slider__item" data-slider="1" data-positionValue="-100%">
+    <li class="slider__item slider__item-v2" data-slider="5" data-positionValue="-100%">
       <img src="/img/balanza6.webp" alt="" />
     </li>
-    <li class="slider__item" data-slider="2" data-positionValue="-200%">
+    <li class="slider__item slider__item-v2" data-slider="6" data-positionValue="-200%">
       <img src="/img/balanza7.webp" alt="" />
     </li>
-    <li class="slider__item" data-slider="3" data-positionValue="-300%">
+    <li class="slider__item slider__item-v2" data-slider="7" data-positionValue="-300%">
       <img src="/img/banner.webp" alt="" />
     </li>
   </ul>
+  <button class="slider__prev">
+    <Icon name="ArrowIcon" size={25} />
+  </button>
+  <button class="slider__next">
+    <Icon name="ArrowIcon" size={25} />
+  </button>
 
   <nav class="slider__nav slider2">
   </nav>

@@ -1,14 +1,21 @@
+@use "../settings/" as *;
+
 .slider {
   position: relative;
   overflow-x: hidden;
+  // overflow-x: scroll;
 
   &__list {
     --Move: 0;
     --transition: none;
 
+    --gaps: 15px;
+    
+
     display: flex;
     height: 50svh;
-    
+    gap: var(--gaps);
+
     transition: var(--transition) cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateX(var(--Move));
   }
@@ -19,6 +26,18 @@
 
     > img {
       height: 100%;
+    }
+  }
+
+  &__item-v2 {
+    --columns: 2;
+    width: calc((100% - ((var(--columns) - 1) * var(--gaps))) / var(--columns));
+
+    @include media-Query(md) {
+      --columns: 2;
+    }
+    @include media-Query(lg) {
+      --columns: 4;
     }
   }
 
@@ -40,6 +59,40 @@
 
     &.active {
       background-color: white;
+    }
+  }
+
+  &__next {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    z-index: 20;
+    border-radius: 50%;
+    color: white;
+    padding: 0.3em;
+    background-color: rgba(0, 0, 0, 0.566);
+
+    > svg {
+      transform: rotate(90deg);
+      pointer-events: none;
+    }
+  }
+
+  &__prev {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    z-index: 20;
+    border-radius: 50%;
+    color: white;
+    padding: 0.3em;
+    background-color: rgba(0, 0, 0, 0.566);
+
+    > svg {
+      transform: rotate(-90deg);
+      pointer-events: none;
     }
   }
 }

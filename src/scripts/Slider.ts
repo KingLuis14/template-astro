@@ -4,17 +4,17 @@ import {
   removeClassElements,
 } from "@/utils/EventListener.ts";
 
+type SliderPosition = "start" | "end";
+
 interface BreakpointConfig {
   media: number;
   dots: number;
 }
 
 interface CreateButtonDinamic {
-  mediaQuery : MediaQueryList;
-  dots : number;
+  mediaQuery: MediaQueryList;
+  dots: number;
 }
-
-
 
 interface AccordionConfig {
   sliderContainer: string;
@@ -22,6 +22,7 @@ interface AccordionConfig {
   navSelector: string;
   listSelector: string;
   dots?: number;
+  slidesMove?: number;
   breakpoint?: BreakpointConfig[];
 }
 
@@ -32,6 +33,8 @@ export class SLider {
   private sliderListSelector: string;
   private dots: number;
   private breakpoints?: BreakpointConfig[];
+  private slideMove: number;
+  private slideMovePorcentaje : number;
 
   private arrayMediaQueries?: CreateButtonDinamic[] = [];
 
@@ -39,6 +42,11 @@ export class SLider {
   private sliderDot?: HTMLElement;
   private sliderNav?: HTMLElement;
   private sliderList?: HTMLElement;
+  private elementsCloneEnds: HTMLElement[];
+
+  private turns : number = 0;
+  private contSlider : number = 0;
+  // private turns : number = 0;
 
   constructor(config: AccordionConfig) {
     this.sliderContainerSelector = config.sliderContainer;
@@ -47,8 +55,29 @@ export class SLider {
     this.sliderListSelector = config.listSelector;
     this.dots = config.dots;
     this.breakpoints = config.breakpoint;
+    this.slideMove = config.slidesMove;
 
     this.init();
+    
+    this.insertItemsSlider("start", this.slideMove);
+    window.addEventListener('resize', ()=> {
+      this.setValueTransformCss();
+
+      const computedStyle = window.getComputedStyle(this.sliderList.querySelector('.slider__item'));
+
+    const moveValue = computedStyle.getPropertyValue('--Move').trim();
+    const columnsValue = computedStyle.getPropertyValue('--columns').trim();
+
+    console.log('Move:', moveValue);
+    console.log('Columns:', columnsValue);
+      
+      
+      // this.insertItemsSlider("start", this.slideMove);
+      // this.getWitdhSlider();
+      // this.getGapSlider();
+    });
+    
+    // this.getFirstSliderShow();
   }
 
   private init() {
@@ -84,11 +113,10 @@ export class SLider {
     removeClassElements(getSiblings($Element), "active");
     const indexDot = this.getIndexDot($Element);
 
-    const $SliderList = this.sliderList;
-    const ArraySliderList = this.getSLider($SliderList);
+    const ArraySliderList = this.getSLider(this.sliderList);
 
-    $SliderList.style.setProperty("--transition", "transform .5s");
-    $SliderList.style.setProperty(
+    this.sliderList.style.setProperty("--transition", "transform .5s");
+    this.sliderList.style.setProperty(
       "--Move",
       this.getPositionValueSlider(ArraySliderList[indexDot])
     );
@@ -134,46 +162,44 @@ export class SLider {
 
     this.breakpoints.forEach((breakpoint, index) => {
       if (index === 0) {
-        this.arrayMediaQueries.push(
-          {
-            mediaQuery : window.matchMedia(`(max-width: ${breakpoint.media - 1}px)`),
-            dots : this.dots || lengthArrayList
-          }
-        );
+        this.arrayMediaQueries.push({
+          mediaQuery: window.matchMedia(
+            `(max-width: ${breakpoint.media - 1}px)`
+          ),
+          dots: this.dots || lengthArrayList,
+        });
       }
 
       if (index === this.breakpoints.length - 1) {
-        this.arrayMediaQueries.push(
-          {
-            mediaQuery : window.matchMedia(`(min-width: ${breakpoint.media}px`),
-            dots : breakpoint.dots
-          }
-        );
+        this.arrayMediaQueries.push({
+          mediaQuery: window.matchMedia(`(min-width: ${breakpoint.media}px`),
+          dots: breakpoint.dots,
+        });
       }
 
       const nextBreakpoint = this.breakpoints[index + 1];
 
       if (nextBreakpoint) {
-        this.arrayMediaQueries.push(
-          {
-            mediaQuery : window.matchMedia(
-              `(min-width: ${breakpoint.media}px) and (max-width: ${
-                nextBreakpoint.media - 1
-              }px)`
-            ),
-            dots : breakpoint.dots
-          }
-        );
+        this.arrayMediaQueries.push({
+          mediaQuery: window.matchMedia(
+            `(min-width: ${breakpoint.media}px) and (max-width: ${
+              nextBreakpoint.media - 1
+            }px)`
+          ),
+          dots: breakpoint.dots,
+        });
       }
     });
 
-    this.arrayMediaQueries.forEach(({mediaQuery , dots}) => {
-      mediaQuery.addEventListener("change", ()=> this.mediaDotFunction(mediaQuery, dots));
+    this.arrayMediaQueries.forEach(({ mediaQuery, dots }) => {
+      mediaQuery.addEventListener("change", () =>
+        this.mediaDotFunction(mediaQuery, dots)
+      );
       this.mediaDotFunction(mediaQuery, dots);
     });
   };
 
-  private mediaDotFunction = (e: MediaQueryList, dots : number) => {
+  private mediaDotFunction = (e: MediaQueryList, dots: number) => {
     if (e.matches) {
       this.createButtons(dots);
     }
@@ -187,4 +213,109 @@ export class SLider {
 
     this.createButtons(this.dots);
   }
+
+  private getElementsSlider = (
+    sliderPosition: SliderPosition,
+    numElements: number
+  ): HTMLElement[] => {
+    const children = Array.from(this.sliderList.children) as HTMLElement[];
+
+    if (sliderPosition === "start") {
+      return children.slice(0, numElements);
+    } else {
+      return children.slice(-numElements);
+    }
+  };
+
+  private insertItemsSlider = (insert: SliderPosition, elements: number = 1) => {
+    if (insert === "start") {
+      
+      this.elementsCloneEnds = this.getElementsSlider("end", elements);
+
+      const elementsToDuplicate = this.elementsCloneEnds.map(element => {
+        this.incrementContSlider();
+        return element.cloneNode(true) as HTMLElement;
+      });
+
+      this.sliderList.prepend(...elementsToDuplicate);
+
+      this.setValueTransformCss();
+      return;
+    }
+
+    // const elementStart = this.getElementsSlider("start", elements);
+
+    // const elementsToDuplicate = elementStart.map(element => {
+    //   return element.cloneNode(true) as HTMLElement;
+    // });
+    //   this.sliderList.append(...elementsToDuplicate);
+
+    //   const elementWidths = elementStart.map(
+    //     (element) => element.offsetWidth + 15
+    //   );
+
+    //   const totalWidth = elementWidths.reduce((sum, width) => sum + width, 0);
+
+      // this.sliderList?.style.setProperty("--Move", `${totalWidth}px`);
+  };
+
+  private setValueTransformCss = ()=> {
+    const elementWidths = this.elementsCloneEnds.map(element => {
+      const percentageTotal = this.getPercentajeElementSlider(element) + this.getGapSlider();
+      // console.log(percentageTotal + "%");
+      return percentageTotal;
+    });
+
+    const totalWidth = elementWidths.reduce((sum, width) => sum + width, 0);
+    this.sliderList?.style.setProperty("--Move", `-${totalWidth}%`);
+    // console.log("mover en pixeles: " + this.getPercentajeFromPixel(totalWidth) + "px");
+  }
+
+  private getPercentajeFromPixel = (value : number)=>{
+    const widthSlider = this.getWitdhSlider();
+    const valuePixel = widthSlider * ( value / 100);
+    return valuePixel;
+  }
+
+  private getWitdhSlider = ()=> this.sliderList.getBoundingClientRect().width;
+  
+
+  private getGapSlider = ()=> {
+
+    const gap = 15;
+    const widthSlider = this.getWitdhSlider(); // Asegúrate de que esta función devuelve el ancho en píxeles.
+    const percentage = (gap / widthSlider) * 100;
+    return percentage;
+    
+     
+  }
+
+  private getPercentajeElementSlider = (element : HTMLElement)=> {
+    const widthSlider = this.getWitdhSlider();
+    const widthElementSlider = element.getBoundingClientRect().width;
+    const percentaje = (widthElementSlider / widthSlider) * 100;
+    return percentaje;
+  }
+
+  private getMoveSliderPercentaje = ()=> {
+    return 100 / this.slideMove || 1;
+  }
+
+  private incrementTurn = ()=> {
+    this.turns++;
+  }
+
+  private incrementContSlider = ()=> {
+    this.contSlider++;
+  }
+
+  private getFirstSliderShow = ()=> {
+    const ArraySliderList = this.getSLider(this.sliderList);
+    // console.table(this.contSlider);
+    
+    // console.log(ArraySliderList[this.contSlider]);
+    
+  }
+
+  
 }
