@@ -1,0 +1,81 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<a
+    href={`https://api.whatsapp.com/send/?phone=51943865528&text=%C2%A1Hola%21+%`}
+    target="_blank"
+    class="WhatsApp-boton"
+    aria-label="boton para abrir el whatsapp"
+>
+    <span class="WhatsApp-span">
+        <Icon name="WhatsApp" size={40} />
+    </span>
+</a>
+
+
+<style lang="scss" is:global>
+    .WhatsApp-boton {
+        position: fixed;
+        bottom: 0.3rem;
+        right: 0.3rem;
+        display: block;
+        width: 100px;
+        aspect-ratio: 1/1;
+        z-index: 100;
+
+       
+    }
+
+    .WhatsApp-span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-color: rgb(56, 203, 78);
+        box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.203);
+        display: grid;
+        place-items: center;
+        padding: .5rem;
+        border-radius: 50%;
+        color: white;
+        transform: translate(-50%, -50%) scale(0);
+        animation: WhatsApp 0.5s 1.5s forwards ease;
+
+        > svg{
+            width: max-content;
+        }
+
+        &::after {
+            content: "1";
+            display: grid;
+            place-items: center;
+            background-color: red;
+            width: 2rem;
+            aspect-ratio: 1/1;
+            transform: scale(0);
+            font-weight: 800;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            border-radius: 50%;
+            animation: Notificacion 20s 8s linear infinite;
+
+            @keyframes Notificacion {
+                2%,
+                23% {
+                    transform: scale(0.7);
+                }
+                26%,
+                100% {
+                    transform: scale(0);
+                }
+            }
+        }
+
+        @keyframes WhatsApp {
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    }
+</style>

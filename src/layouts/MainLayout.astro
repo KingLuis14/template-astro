@@ -1,12 +1,14 @@
 ---
-import '@/scss/index.scss';
+import "@/scss/index.scss";
 // import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   titulo: string;
   descripction: string;
+  imagen?: string;
 }
-const { titulo, descripction } = Astro.props;
+
+const { titulo, descripction, imagen } = Astro.props;
 ---
 
 <!doctype html>
@@ -14,13 +16,28 @@ const { titulo, descripction } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={descripction} />
-    <meta name="theme-color" content="#0610cc" />
-    <link rel="icon" type="image/png" href="/img/ift.svg" />
     <title>{titulo} - Portafolio</title>
+    <meta name="description" content={descripction} />
+    <link rel="icon" type="image/png" href="/img/ift.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link fetchpriority="high" rel="preload" as="font" href="/fonts/inter-latin-variable-full-normal.woff2" type="font/woff2" crossorigin="anonymous" />
+
+    <!-- fuente -->
+    <link
+      fetchpriority="high"
+      rel="preload"
+      as="font"
+      href="/fonts/inter-latin-variable-full-normal.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <slot name="preload" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content={titulo} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:description" content={descripction} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={imagen} />
     <!-- <ViewTransitions /> -->
   </head>
   <body>
@@ -28,8 +45,7 @@ const { titulo, descripction } = Astro.props;
   </body>
 </html>
 
-<script >
-    import { main } from "@/scripts/index";
-    document.addEventListener('DOMContentLoaded', main);
-
+<script>
+  import { main } from "@/scripts/index";
+  document.addEventListener("DOMContentLoaded", main);
 </script>

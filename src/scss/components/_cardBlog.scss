@@ -1,0 +1,44 @@
+@use '../settings/' as *;
+
+.cardBlog{
+    display: grid;
+
+    > *{
+        grid-column: 1/ -1;
+        grid-row: 1 / -1;
+        
+    }
+
+    &__img{
+        aspect-ratio: 3/2;
+        height: 100%;
+    }
+
+    &__content{
+        align-self: self-end;
+        background-color: rgba(0, 0, 0, 0.519);
+        backdrop-filter: blur(.5rem);
+        color: white;
+        padding: 1rem;
+        line-height: normal;
+    }
+}
+
+.cardBlock-container{
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: 1fr;
+
+    @include media-Query(md){
+        grid-template-columns: 1fr 1fr;
+
+        > article:first-child{
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+    }
+    @include media-Query(lg){
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+}

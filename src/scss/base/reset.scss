@@ -10,7 +10,6 @@
 * {
     padding: 0;
     margin: 0;
-    font: inherit;
 }
 
 body {
@@ -42,8 +41,7 @@ li {
     list-style: none;
 }
 
-video,
-svg {
+video {
     display: block;
     width: 100%;
 }
@@ -84,27 +82,3 @@ h5,small, .fs-small{
     font-size: $fs-small;
 }
 
-input[type="radio"] {
-    /* ...existing styles */
-    display: grid;
-    place-content: center;
-    appearance: none;
-    background-color: #fff;
-    border-radius: 50%;
-    
-  }
-  
-  input[type="radio"]::before {
-    content: "";
-    width: 3vmin;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background-color: #fccb1a;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    
-  }
-  
-  input[type="radio"]:checked::before {
-    transform: scale(1);
-  }

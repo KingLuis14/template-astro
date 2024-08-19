@@ -4,10 +4,14 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import Slider from "@/components/Slider.astro";
 import Slider2 from "@/components/Slider2.astro";
 import Wrapper from "@/components/ui/Wrapper.astro";
-// import Hero from "@/components/Moleculs/Hero.astro";
+import WhatsApp from "@/components/WhatsApp.astro";
 import Acordion from "@/components/Acordion.astro";
 // import CardProduct from "@/components/Moleculs/CardProduct.astro";
 import type { Product } from "@/interfaces/Product.ts";
+import Comment from "@/components/Comment.astro";
+import { Icon } from "astro-icon/components";
+import Proyects from "@/sections/Proyects.astro";
+import Questions from "@/sections/Questions.astro";
 
 const product1 : Product = {
 	img : "https://www.tiendaperuonline.com/cdn/shop/products/Panetone_669x669.jpg?v=1698311798",
@@ -33,18 +37,32 @@ const product3 : Product = {
 
 <MainLayout titulo="enrique" descripction="xd">
 	
-	<!-- <Slider /> -->
-	<!-- <br> -->
-	<Slider2 />
+
+	 
 	
-	<Wrapper classes="display:flex flexDirection:column rowGap:4">
-		<Acordion />
-		<Acordion />
-		<Acordion />
-		<Acordion />
-	</Wrapper>
+	<!-- <Wrapper classes="display:flex flexDirection:column rowGap:4"> -->
+
+
+		<Proyects/>
+		<Questions/>
+
+		<!-- <div class="slider-contenedor">
+			<button class="slider-boton-izquierda">
+				<Icon name="ArrowIcon" size={18} />
+			 </button>
+			<div class="comentario-container">
+				<Comment/>
+			</div>
+			<button class="slider-boton-derecha">
+				<Icon name="ArrowIcon" size={18} />
+			 </button>
+		</div> -->
+		
+		
 	
 	<footer>
 		derechos reservados
 	</footer>
+
+	<WhatsApp></WhatsApp>
 </MainLayout>

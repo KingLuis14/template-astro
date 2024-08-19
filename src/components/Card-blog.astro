@@ -1,0 +1,18 @@
+---
+interface Props {
+  image: string;
+  title: string;
+  autor: string;
+  date: string;
+}
+
+const { image, title, autor, date } = Astro.props;
+---
+
+<article class="cardBlog">
+  <img class="cardBlog__img" src={image} alt={title} />
+  <div class="cardBlog__content textFlow">
+    <h3>{title}</h3>
+    <p><strong>{autor} <time datetime="2001-05-15T19:00">{date}</time> </strong></p>
+  </div>
+</article>

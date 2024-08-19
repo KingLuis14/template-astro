@@ -5,6 +5,7 @@ import {
 } from "@/utils/EventListener.ts";
 
 type SliderPosition = "start" | "end";
+type Direction = "rigth" | "left";
 
 interface BreakpointConfig {
   media: number;
@@ -34,7 +35,7 @@ export class SLider {
   private dots: number;
   private breakpoints?: BreakpointConfig[];
   private slideMove: number;
-  private slideMovePorcentaje: number;
+  private slideMovePorcentaje: string;
 
   private arrayMediaQueries?: CreateButtonDinamic[] = [];
 
@@ -43,14 +44,8 @@ export class SLider {
   private sliderNav?: HTMLElement;
   private sliderList?: HTMLElement;
   private elementsCloneEnds: HTMLElement[];
-
-  private turns: number = 0;
   private contSlider: number = 0;
-  // private turns : number = 0;
 
-  // Variables para observación
-  private previousMoveValue: string = "";
-  private previousColumnsValue: string = "";
   private prevcolumnsValue: string = "";
   private actualcolumnsValue: string = "";
 
@@ -77,12 +72,19 @@ export class SLider {
       this.sliderContainer
     );
 
-    this.insertItemsSlider("start", this.slideMove);
+    this.insertItemsSlider("start", parseInt(this.prevcolumnsValue));
+    
+    console.log(this.contSlider);
+    
+    console.log("Slider actual: " ,this.getSliderActual());
+    
 
     window.addEventListener("resize", () => {
+      
       this.setValueTransformCss();
       this.resizeGetColumns();
       this.createButtons(8 / parseInt(this.actualcolumnsValue));
+      // console.log(this.getSlideMove());
     });
   }
 
@@ -108,18 +110,9 @@ export class SLider {
     const indexDot = this.getIndexDot($Element);
 
     const ArraySliderList = this.getSLider(this.sliderList);
-    // console.log("elementos a mover", this.elementsCloneEnds.map(elem => elem));
-    // console.log(indexDot);
 
     this.sliderList.style.setProperty("--transition", "transform .5s");
-    // console.log("elementos a mover" + this.elementsCloneEnds[0]);
-
-    // this.sliderList.style.setProperty(
-    //   "--Move",
-    //   `-${
-    //     indexDot * 100 + this.getGapSlider() * parseInt(this.prevcolumnsValue)
-    //   }%`
-    // );
+    // console.log(this.setSliderMove("rigth", ));
   };
 
   private getSLider = (element: HTMLElement) => {
@@ -129,7 +122,6 @@ export class SLider {
   private getIndexDot(element: HTMLElement): number {
     return parseInt(element.getAttribute("data-value"), 10);
   }
-
 
   private createButtons(dots: number) {
     const lengthArrayList = this.getSLider(this.sliderList).length;
@@ -167,12 +159,16 @@ export class SLider {
     }
   };
 
-  private insertItemsSlider = ( insert: SliderPosition, elements: number = 1) => {
+  private insertItemsSlider = (
+    insert: SliderPosition,
+    elements: number = 1
+  ) => {
     if (insert === "start") {
       this.elementsCloneEnds = this.getElementsSlider("end", elements);
 
       const elementsToDuplicate = this.elementsCloneEnds.map((element) => {
-        this.incrementContSlider();
+        this.incrementContSlider(1);
+        
         return element.cloneNode(true) as HTMLElement;
       });
 
@@ -181,46 +177,23 @@ export class SLider {
       this.setValueTransformCss();
       return;
     }
-
-    // const elementStart = this.getElementsSlider("start", elements);
-
-    // const elementsToDuplicate = elementStart.map(element => {
-    //   return element.cloneNode(true) as HTMLElement;
-    // });
-    //   this.sliderList.append(...elementsToDuplicate);
-
-    //   const elementWidths = elementStart.map(
-    //     (element) => element.offsetWidth + 15
-    //   );
-
-    //   const totalWidth = elementWidths.reduce((sum, width) => sum + width, 0);
-
-    // this.sliderList?.style.setProperty("--Move", `${totalWidth}px`);
   };
 
   private setValueTransformCss = () => {
     const elementWidths = this.elementsCloneEnds.map((element) => {
-      const percentageTotal =
-        this.getPercentajeElementSlider(element) + this.getGapSlider();
-      // console.log(percentageTotal + "%");
-      return percentageTotal;
+      const widthSlider = element.getBoundingClientRect().width + 15;
+      return this.convertNumberfromPercentaje(widthSlider, this.sliderList);
     });
 
     const totalWidth = elementWidths.reduce((sum, width) => sum + width, 0);
     this.sliderList?.style.setProperty("--Move", `-${totalWidth}%`);
   };
 
-  private getPercentajeFromPixel = (value: number) => {
-    const widthSlider = this.getWitdhSlider();
-    const valuePixel = widthSlider * (value / 100);
-    return valuePixel;
-  };
-
   private getWitdhSlider = () => this.sliderList.getBoundingClientRect().width;
 
   private getGapSlider = () => {
     const gap = 15;
-    const widthSlider = this.getWitdhSlider(); // Asegúrate de que esta función devuelve el ancho en píxeles.
+    const widthSlider = this.getWitdhSlider();
     const percentage = (gap / widthSlider) * 100;
     return percentage;
   };
@@ -232,19 +205,9 @@ export class SLider {
     return percentaje;
   };
 
-  private getMoveSliderPercentaje = () => {
-    return 100 / this.slideMove || 1;
+  private incrementContSlider = (num: number) => {
+    return this.contSlider += 1;
   };
-
-  private incrementTurn = () => {
-    this.turns++;
-  };
-
-  private incrementContSlider = () => {
-    this.contSlider++;
-  };
-
-  
 
   private getItemsShowSlider = () => {
     const element = this.sliderList.querySelector(".slider__item");
@@ -265,5 +228,30 @@ export class SLider {
       parseInt(this.actualcolumnsValue, 10)
     );
     this.prevcolumnsValue = this.actualcolumnsValue;
+  };
+
+  private convertNumberfromPercentaje = (num : number , elemt : HTMLElement) => {
+    const widthElement = elemt.getBoundingClientRect().width;
+    return ( num / widthElement ) * 100;
+  }
+
+  private getSliderActual = ()=> {
+    const arraySliderList = this.getSLider(this.sliderList);
+    return arraySliderList[this.contSlider];
+  }
+
+  private setSliderMove = (direction: Direction, value: string) => {
+    if (direction == "rigth") {
+      this.sliderList.style.setProperty("--Move", `-${value}%`);
+      this.incrementContSlider(1);
+      return;
+    }
+
+    this.sliderList.style.setProperty("--Move", `${value}%`);
+    this.incrementContSlider(-1);
+  };
+
+  private getSlideMove = () => {
+    return this.sliderList.style.getPropertyValue("--Move").trim();
   };
 }

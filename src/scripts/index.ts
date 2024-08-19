@@ -1,6 +1,7 @@
 import { addCustomEventListener } from "@/utils/EventListener.ts";
 import { toogleAcordeon } from "./Acordion";
 import { SLider } from "@/scripts/Slider.ts";
+import { carruselProduct } from "@/scripts/Comentarios.js";
 
 export const main = () => {
   // const element = document.querySelector(".slider__item");
@@ -30,21 +31,24 @@ export const main = () => {
   //     dots: 5
   //   });
 
-  new SLider({
-    sliderContainer: ".slider.slider2",
-    dotSelector: ".slider__dot",
-    navSelector: ".slider__nav.slider2",
-    listSelector: ".slider__list.slider2",
-    slidesMove: 2,
-    breakpoint: [
-      {
-        media: 768,
-        dots: 4,
-      },
-      {
-        media: 1024,
-        dots: 2,
-      },
-    ],
-  });
+
+  carruselProduct();
+
+  // new SLider({
+  //   sliderContainer: ".slider.slider2",
+  //   dotSelector: ".slider__dot",
+  //   navSelector: ".slider__nav.slider2",
+  //   listSelector: ".slider__list.slider2",
+  //   slidesMove: 2,
+  //   breakpoint: [
+  //     {
+  //       media: 768,
+  //       dots: 4,
+  //     },
+  //     {
+  //       media: 1024,
+  //       dots: 2,
+  //     },
+  //   ],
+  // });
 };

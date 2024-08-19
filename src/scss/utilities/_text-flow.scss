@@ -1,12 +1,6 @@
-.textFlow {
-    
-    --_space : var(--spaceSub , var(--space , 1.2em));
-}
+
 .textFlow > *:not(:first-child){
-    margin-block-start: var(--_space);
+    margin-block-start: var(--_space, 1rem);
 }
 
 
-.textFlow .textFlow{
-    --spaceSub: initial;
-}
