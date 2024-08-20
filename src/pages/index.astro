@@ -10,8 +10,9 @@ import Acordion from "@/components/Acordion.astro";
 import type { Product } from "@/interfaces/Product.ts";
 import Comment from "@/components/Comment.astro";
 import { Icon } from "astro-icon/components";
-import Proyects from "@/sections/Proyects.astro";
+import Blog from "@/sections/Blog.astro";
 import Questions from "@/sections/Questions.astro";
+import Proyect from "@/sections/Proyect.astro";
 
 const product1 : Product = {
 	img : "https://www.tiendaperuonline.com/cdn/shop/products/Panetone_669x669.jpg?v=1698311798",
@@ -42,8 +43,8 @@ const product3 : Product = {
 	
 	<!-- <Wrapper classes="display:flex flexDirection:column rowGap:4"> -->
 
-
-		<Proyects/>
+		<Proyect/>
+		<Blog/>
 		<Questions/>
 
 		<!-- <div class="slider-contenedor">

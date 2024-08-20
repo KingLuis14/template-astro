@@ -1,44 +1,43 @@
-@use '../settings/' as *;
+@use "../settings/" as *;
 
-.cardBlog{
-    display: grid;
+.cardBlog {
+  display: grid;
 
-    > *{
-        grid-column: 1/ -1;
-        grid-row: 1 / -1;
-        
-    }
+  > * {
+    grid-column: 1/ -1;
+    grid-row: 1 / -1;
+  }
 
-    &__img{
-        aspect-ratio: 3/2;
-        height: 100%;
-    }
+  &__img {
+    aspect-ratio: 3/2;
+    height: 100%;
+  }
 
-    &__content{
-        align-self: self-end;
-        background-color: rgba(0, 0, 0, 0.519);
-        backdrop-filter: blur(.5rem);
-        color: white;
-        padding: 1rem;
-        line-height: normal;
-    }
+  &__content {
+    align-self: self-end;
+    background-color: rgba(0, 0, 0, 0.5);
+    // border-image: fill 1 linear-gradient(#0000 0% 30%, #0000001a 40%, #0003, #0000004d, #0006, #00000080, #0009, #000000b3);
+    // backdrop-filter: blur(2px);
+    color: white;
+    padding: 1rem;
+    line-height: normal;
+  }
 }
 
-.cardBlock-container{
-    display: grid;
-    gap: .5rem;
-    grid-template-columns: 1fr;
+.cardBlock-container {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr;
 
-    @include media-Query(md){
-        grid-template-columns: 1fr 1fr;
+  @include media-Query(md) {
+    grid-template-columns: 1fr 1fr;
 
-        > article:first-child{
-            grid-column: span 2;
-            grid-row: span 2;
-        }
+    > *:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
     }
-    @include media-Query(lg){
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
+  }
+  @include media-Query(lg) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
