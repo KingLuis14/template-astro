@@ -5,8 +5,8 @@
     &--cta{
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-areas: "contenido";
-        gap: 1rem;
+        grid-template-areas: "contenido" "imagen";
+        gap: 4rem;
 
         > *:first-child{
             grid-area: contenido;
@@ -15,7 +15,8 @@
 
         > *:last-child{
             grid-area: imagen;
-            display: none;
+            width: 70%;
+            justify-self: center;
         }
 
         @include media-Query(md){
@@ -23,6 +24,8 @@
             grid-template-areas: "contenido imagen";
 
             > *:last-child{
+                width: 100%;
+                justify-self: auto;
                 display: block;
             }
         }
@@ -40,11 +43,29 @@
 
     &--form{
         display: grid;
+        grid-template-areas: "formulario";
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 3rem;
+
+        > form{
+            grid-area: formulario;
+        }
+
+        > *:last-child{
+            grid-area: imagen;
+            display: none;
+        }
 
         @include media-Query(md){
             grid-template-columns: 1fr 1fr;
+            grid-template-areas: "imagen formulario";
+
+            > *:last-child{
+                display: block;
+                width: 70%;
+                align-self: end;
+                justify-self: end;
+            }
         }
     }
 }
