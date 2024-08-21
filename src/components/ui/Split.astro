@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import {
+  wrapper,
+  type Props as WrapperProps,
+} from "@/components/ui/Wrapper.astro";
+import { cva, type VariantProps } from "class-variance-authority";
+
+const split = cva("wrapper split", {
+  variants: {
+    size: {
+      about: "slipt--about",
+      cta: "slipt--cta",
+      form: "slipt--form",
+    },
+  },
+});
+
+interface Props
+  extends VariantProps<typeof split>,
+    Omit<WrapperProps, "size">,
+    HTMLAttributes<"div"> {
+  variantWrapper?: WrapperProps["size"];
+  classes?: string;
+}
+
+const { size, classes, variantWrapper = "large", ...attrs } = Astro.props;
+---
+
+<div
+  class={`${wrapper({ size: variantWrapper })} ${split({ size, class: classes })}`}
+  {...attrs}
+>
+  <slot />
+</div>

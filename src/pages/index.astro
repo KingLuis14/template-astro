@@ -13,57 +13,40 @@ import { Icon } from "astro-icon/components";
 import Blog from "@/sections/Blog.astro";
 import Questions from "@/sections/Questions.astro";
 import Proyect from "@/sections/Proyect.astro";
+import AboutMe from "@/sections/AboutMe.astro";
+import Banner from "@/sections/Banner.astro";
 
-const product1 : Product = {
-	img : "https://www.tiendaperuonline.com/cdn/shop/products/Panetone_669x669.jpg?v=1698311798",
-	title: "Paneton Donofrio 880g - caja",
-	description: "Deliciosa receta con esencia de naranja, pasas fibamente seleccionadas y la cantidad exacta de frutas confitadas.",
-	price: 76
-}
+const product1: Product = {
+  img: "https://www.tiendaperuonline.com/cdn/shop/products/Panetone_669x669.jpg?v=1698311798",
+  title: "Paneton Donofrio 880g - caja",
+  description:
+    "Deliciosa receta con esencia de naranja, pasas fibamente seleccionadas y la cantidad exacta de frutas confitadas.",
+  price: 76,
+};
 
-const product2 : Product = {
-	img : "https://tiendanestle.pe/cdn/shop/files/12521515.jpg?v=1691776639&width=600",
-	title: "Sublime Clásico 24x28g",
-	description: "Chocolate con leche con maní",
-	price: 12
-}
-const product3 : Product = {
-	img : "https://www.tienda-peruana.com/2306-tm_large_default/chocolate-caliente-a-la-taza-natural-sol-del-cusco-incasur-12x90g.jpg",
-	title: "Sol del Cusco Tableta Chocolate 12x90g",
-	description: "Chocolate caliente a la taza Natural Sol del Cusco IncaSur / Perú",
-	price: 15
-}
-
+const product2: Product = {
+  img: "https://tiendanestle.pe/cdn/shop/files/12521515.jpg?v=1691776639&width=600",
+  title: "Sublime Clásico 24x28g",
+  description: "Chocolate con leche con maní",
+  price: 12,
+};
+const product3: Product = {
+  img: "https://www.tienda-peruana.com/2306-tm_large_default/chocolate-caliente-a-la-taza-natural-sol-del-cusco-incasur-12x90g.jpg",
+  title: "Sol del Cusco Tableta Chocolate 12x90g",
+  description:
+    "Chocolate caliente a la taza Natural Sol del Cusco IncaSur / Perú",
+  price: 15,
+};
 ---
 
 <MainLayout titulo="enrique" descripction="xd">
-	
+  <Banner />
+  <Proyect />
+  <AboutMe />
+  <!-- <Blog /> -->
+  <!-- <Questions /> -->
 
-	 
-	
-	<!-- <Wrapper classes="display:flex flexDirection:column rowGap:4"> -->
+  <footer>derechos reservados</footer>
 
-		<Proyect/>
-		<Blog/>
-		<Questions/>
-
-		<!-- <div class="slider-contenedor">
-			<button class="slider-boton-izquierda">
-				<Icon name="ArrowIcon" size={18} />
-			 </button>
-			<div class="comentario-container">
-				<Comment/>
-			</div>
-			<button class="slider-boton-derecha">
-				<Icon name="ArrowIcon" size={18} />
-			 </button>
-		</div> -->
-		
-		
-	
-	<footer>
-		derechos reservados
-	</footer>
-
-	<WhatsApp></WhatsApp>
+  <WhatsApp />
 </MainLayout>

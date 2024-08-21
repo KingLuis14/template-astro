@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const wrapper = cva("wrapper", {
+export const wrapper = cva("wrapper", {
   variants: {
     size: {
       large: "wrapper--lg",
@@ -23,9 +23,7 @@ const wrapper = cva("wrapper", {
   compoundVariants: [{ size: "medium", class: "uppercase" }],
 });
 
-export interface Props
-  extends VariantProps<typeof wrapper>,
-    HTMLAttributes<"div"> {
+export interface Props extends VariantProps<typeof wrapper>, HTMLAttributes<"div"> {
   classes?: string;
 }
 

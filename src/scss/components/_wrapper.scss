@@ -1,7 +1,7 @@
 
 .wrapper{
     
-    width: min(90% , var(--max-width));
+    width: min( 100% - (var(--padding-wrapper) * 2) , var(--max-width));
     margin-inline: auto;
 
     &--lg{

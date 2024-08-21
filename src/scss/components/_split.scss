@@ -1,0 +1,34 @@
+@use '../settings/' as *;
+
+.slipt{
+
+    &--cta{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        @include media-Query(md){
+            grid-template-columns: 7fr 3fr;
+        }
+    }
+
+    &--about{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+
+        @include media-Query(md){
+            grid-template-columns: 6fr 4fr;
+        }
+    }
+
+    &--form{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        @include media-Query(md){
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}

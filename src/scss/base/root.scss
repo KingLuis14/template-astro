@@ -4,5 +4,6 @@
 :root {
     @include generate-css-variables($colors,"color", $global: true);
     @include generate-css-variables($font-sizes,"fs", $global: true);
+    --padding-wrapper: 1rem;
 }
 

@@ -1,30 +1,40 @@
 ---
+import Button from "@/components/Atoms/Button.astro";
 import CardProyect from "@/components/Card-Proyect.astro";
+import Typografic from "@/components/Typografic.astro";
+import SectionPage from "@/components/ui/SectionPage.astro";
 import Wrapper from "@/components/ui/Wrapper.astro";
 import type { Proyect } from "@/interfaces/Proyect";
 
-const proyect1:Proyect = {
-    title: "Proyecto Game Page",
-    description: "Sitio web de juegos y ventas",
-    image: "https://portfolio-peter2.vercel.app/assets/tensei2-3STPUW1i.webp",
-    color: "#09071d",
-    tags: [ "discord", "facebook"]
-}
-const proyect2:Proyect = {
-    title: "Proyecto Pelis en HD",
-    description: "Sitio web de peliculas",
-    image: "https://portfolio-peter2.vercel.app/assets/movonline-C3lBmh0H.webp",
-    color: "black",
-    tags: [ "discord", "github"]
-}
-
-
+const proyect1: Proyect = {
+  title: "Proyecto Game Page",
+  description: "Sitio web de juegos y ventas",
+  image: "https://portfolio-peter2.vercel.app/assets/tensei2-3STPUW1i.webp",
+  color: "#09071d",
+  tags: ["discord", "facebook"],
+};
+const proyect2: Proyect = {
+  title: "Proyecto Pelis en HD",
+  description: "Sitio web de peliculas",
+  image: "https://portfolio-peter2.vercel.app/assets/movonline-C3lBmh0H.webp",
+  color: "black",
+  tags: ["discord", "github"],
+};
 ---
 
-<Wrapper classes="display:grid gap:4 @md/gridTemplateColumns:2">
-    <CardProyect data={proyect1} />
-    <CardProyect data={proyect2} />
-    <CardProyect data={proyect1} />
-    <CardProyect data={proyect2} />
+<SectionPage>
+  <Wrapper>
+    <Typografic as="h2" size="sectionTitle" theme="theme2">Proyectos</Typografic>
+    <div class="display:grid gap:4 @md/gridTemplateColumns:2">
+      <CardProyect data={proyect1} />
+      <CardProyect data={proyect2} />
+      <CardProyect data={proyect1} />
+      <CardProyect data={proyect2} />
+    </div>
+    <footer class="text-center" style="margin-block: 2rem;">
+      <Button as="button">Ver todos los proyectos</Button>
+    </footer>
 
-</Wrapper>
+    <!-- <Button as="button" theme="theme3">Ver todos los proyectos</Button> -->
+  </Wrapper>
+</SectionPage>

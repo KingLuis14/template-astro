@@ -21,6 +21,13 @@ $margin-auto: ("Top", "Rigth", "Left", "Bottom", "Block", "Inline");
   }
 }
 
+// @for $i from 1 through 12{
+//   .margin\:#{$i}{
+//     margin: #{$i * .25rem};
+//   }
+  
+// }
+
 @for $i from 1 through 12{
   .padding\:#{$i}{
     padding: #{$i * .25rem};

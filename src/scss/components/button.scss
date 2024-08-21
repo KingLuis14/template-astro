@@ -20,13 +20,13 @@
     }
 
     &--theme1{
-        --text-color :  var(--color-black-000);
-        --bg-color :  var(--color-secondary-300);
-        --bg-color-hover :  var(--color-secondary-500);
+        --text-color :  var(--color-white-000);
+        --bg-color :  var(--color-blue-500);
+        --bg-color-hover :  var(--color-blue-600);
         --text-color-hover :  var(--color-black-000);
     }
     &--theme2{
-        --text-color :  var(--color-black-000);
+        --text-color :  var(--color-blue-500);
         --bg-color :  var(--color-white-000);
         --bg-color-hover :  var(--color-white-100);
         --text-color-hover :  var(--color-black-100);
