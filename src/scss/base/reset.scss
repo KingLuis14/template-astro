@@ -65,20 +65,23 @@ button {
 
 h1, .fs-title1{
     font-size: $fs-title1;
+    line-height: normal;
 }
 h2, .fs-title2{
     font-size: $fs-title2;
+    line-height: normal;
 }
 
 h3, .fs-title3{
     font-size: $fs-title3;
+    line-height: normal;
 }
 
-h4, button, .fs-normal{
+h4, p, .fs-normal{
     font-size: $fs-normal;
 }
 
-h5,small, .fs-small{
+h5,button,small, .fs-small{
     font-size: $fs-small;
 }
 

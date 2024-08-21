@@ -5,10 +5,26 @@
     &--cta{
         display: grid;
         grid-template-columns: 1fr;
+        grid-template-areas: "contenido";
         gap: 1rem;
 
+        > *:first-child{
+            grid-area: contenido;
+            --_space: 2em;
+        }
+
+        > *:last-child{
+            grid-area: imagen;
+            display: none;
+        }
+
         @include media-Query(md){
-            grid-template-columns: 7fr 3fr;
+            grid-template-columns: 5fr 3fr;
+            grid-template-areas: "contenido imagen";
+
+            > *:last-child{
+                display: block;
+            }
         }
     }
 

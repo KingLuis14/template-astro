@@ -1,17 +1,26 @@
 $fuente : "inter";
 
+/* 
+
+supertitlesub: 41px max
+titlesection : 34px max
+normal : 20px max
+*/
+
 $font-sizes : (
-    superTitle: clamp(2.7rem, 2.1739rem + 1.6304vi, 3.375rem),
-    title1: clamp(1.728rem, 1.6017rem + 0.6313vi, 2.0752rem),
-    title2: clamp(1.44rem, 1.3599rem + 0.4003vi, 1.6602rem),
-    title3: clamp(1.2rem, 1.1534rem + 0.233vi, 1.3281rem),
-    normal: clamp(1rem, 0.9773rem + 0.1136vi, 1.0625rem),
-    small: clamp(0.8854rem, 0.8904rem + -0.0066vi, 0.8889rem),
-    smallx: clamp(0.7378rem, 0.8125rem + -0.0996vi, 0.7901rem),
+    superTitle: clamp(2.7994rem, 2.4165rem + 1.9141vw, 3.7325rem),
+    superTitleSub: clamp(1.944rem, 1.6782rem + 1.3292vw, 2.592rem),
+    title1: clamp(1.62rem, 1.3985rem + 1.1077vw, 2.16rem), 
+    title2: clamp(1.35rem, 1.1654rem + 0.9231vw, 1.8rem),
+    title3: clamp(1.125rem, 0.9712rem + 0.7692vw, 1.5rem),
+    normal: clamp(0.9375rem, 0.8093rem + 0.641vw, 1.25rem),
+    small: clamp(0.7813rem, 0.6744rem + 0.5342vw, 1.0417rem),
+    smallx: clamp(0.651rem, 0.562rem + 0.4452vw, 0.8681rem),
 );
 
 
 $fs-superTitle : var(--fs-superTitle);
+$fs-superTitleSub : var(--fs-superTitleSub);
 $fs-title1 : var(--fs-title1);
 $fs-title2 : var(--fs-title2);
 $fs-title3 : var(--fs-title3);

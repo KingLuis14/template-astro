@@ -1,3 +1,5 @@
+@use "../settings/" as *;
+
 .text-center{
     text-align: center;
 }
@@ -8,4 +10,11 @@
 
 .text-left{
     text-align: left;
+}
+
+.\@md\/text-left{
+    
+    @include media-Query(md){
+        text-align: left;
+    }
 }

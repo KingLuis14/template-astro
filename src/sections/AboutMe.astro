@@ -1,4 +1,5 @@
 ---
+import Typografic from "@/components/Typografic.astro";
 import SectionPage from "@/components/ui/SectionPage.astro";
 import Split from "@/components/ui/Split.astro";
 
@@ -8,9 +9,10 @@ import Split from "@/components/ui/Split.astro";
 <SectionPage>
     <Split size="about"  >
         <div class="textFlow alignItems:center">
-            <h2 class="color-white-000">Conoceme</h2>
-            <p class="color-white-300">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum incidunt et maxime enim quos ducimus earum, ut quibusdam libero porro atque labore, dicta ipsam? Vero eum praesentium expedita adipisci. A?</p>
-            <p class="color-white-300">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum incidunt et maxime enim quos ducimus earum, ut quibusdam libero porro atque labore, dicta ipsam? Vero eum praesentium expedita adipisci. A?</p>
+            <Typografic as="h2" size="title1" theme="theme2"  >Conoceme</Typografic>
+            <p class="color-white-300">Hola soy Enrique Calero, inicie en el mundo del Diseño Web a los 18 años. Actualmente diseño y maqueto sitios web a medida.</p>
+            <p class="color-white-300">Me encanta maquetar sitios web a partir de una pieza grafica, siguiendo buenas practicas</p>
+            <p class="color-white-300">Antes de entregar un proyecto me gusta optimizar el rendimiento web, para ofrecer una mejor experiencia a sus usuario</p>
         </div>
         <img class="aspect-ratio-box" src="https://i.pinimg.com/736x/8b/c1/03/8bc103afbea75b591370177c9b18e52d.jpg" alt="">
     </Split>
