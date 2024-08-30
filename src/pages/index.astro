@@ -1,5 +1,5 @@
 ---
-import "../scss/index.scss";
+// import "../scss/index.scss";
 import MainLayout from "@/layouts/MainLayout.astro";
 import Slider from "@/components/Slider.astro";
 import Slider2 from "@/components/Slider2.astro";
@@ -50,7 +50,30 @@ const product3: Product = {
   <!-- <Blog /> -->
   <!-- <Questions /> -->
 
-  <footer>derechos reservados</footer>
+  <footer>@<span id="fecha"></span> derechos no reservados</footer>
 
   <WhatsApp />
 </MainLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const $fecha = document.getElementById("fecha");
+
+    function actualizarMinutosYSegundos() {
+      const ahora = new Date();
+      let horas = ahora.getHours();
+      const year = ahora.getFullYear();
+      const minutos = String(ahora.getMinutes()).padStart(2, "0");
+      const segundos = String(ahora.getSeconds()).padStart(2, "0");
+      const periodo = horas >= 12 ? "pm" : "am";
+
+      horas = horas % 12 || 12; // Convierte a formato 12 horas
+
+      $fecha.innerText = `${year} ${horas}:${minutos}:${segundos} ${periodo}`;
+    }
+
+    // Actualiza la hora inmediatamente y luego cada segundo
+    actualizarMinutosYSegundos();
+    setInterval(actualizarMinutosYSegundos, 1000); // 1000ms = 1 segundo
+  });
+</script>

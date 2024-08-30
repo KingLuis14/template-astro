@@ -1,17 +1,28 @@
 ---
+import type { ImageMetadata } from "astro";
 import type { Proyect } from "@/interfaces/Proyect";
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 
 interface Props {
-  data : Proyect;
+  data: Proyect;
 }
 
-const { data} = Astro.props;
-const { title, description, image, color, tags } = data;
+const { data } = Astro.props;
+const { title, description, image, url, color, tags } = data;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/img/*.{jpeg,jpg,png,gif}"
+);
+if (!images[image])
+  throw new Error(
+    `"${image}" does not exist in glob: "src/assets/img/*.{jpeg,jpg,png,gif}"`
+  );
 ---
 
-<div class="cardProyect" style=`--color:${color}`>
-  <img class="cardProyect__img" src={image} alt={title} />
+<a href={url} target="_blank" class="cardProyect" style=`--color:${color}`>
+  <Image class="cardProyect__img" src={images[image]()} alt={title} />
+  <div class="cardProyect__placeholderImg"></div>
   <div class="cardProyect__content textFlow">
     <h3>{title}</h3>
     <p class="color-white-300">{description}</p>
@@ -25,5 +36,63 @@ const { title, description, image, color, tags } = data;
       }
     </footer>
   </div>
-</div>
+</a>
 
+<style lang="scss">
+  .cardProyect {
+    --_scale: var(--scale, 1);
+    --_opacity: var(--opacity, 1);
+    --_moveX: var(--moveX, 0);
+
+    display: grid;
+    background-color: var(--color, black);
+    padding: 1rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+
+    &:hover {
+      --scale: 1.7;
+      --opacity: 0;
+      --moveX: -1rem;
+    }
+
+    > * {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+    }
+
+    &__img,
+    &__placeholderImg {
+      width: 75%;
+      aspect-ratio: 1600/1200;
+      justify-self: end;
+      transform-origin: top right;
+      transition: transform 0.4s;
+      transform: scale(var(--_scale));
+      height: 100%;
+    }
+
+    &__placeholderImg {
+      background-image: linear-gradient(
+        90deg,
+        var(--color, black),
+        transparent
+      );
+      z-index: 10;
+    }
+
+    &__content {
+      justify-self: start;
+      align-self: center;
+      width: 60%;
+      color: white;
+      pointer-events: none;
+      transition:
+        opacity 0.4s,
+        transform 0.4s;
+      z-index: 20;
+      opacity: var(--_opacity);
+      transform: translateX(var(--_moveX));
+    }
+  }
+</style>

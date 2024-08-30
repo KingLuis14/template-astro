@@ -11,7 +11,7 @@ const split = cva("wrapper split", {
     size: {
       about: "slipt--about",
       cta: "slipt--cta",
-      form: "slipt--form"
+      form: "slipt--form",
     },
   },
 });
@@ -33,3 +33,74 @@ const { size, classes, variantWrapper = "large", ...attrs } = Astro.props;
 >
   <slot />
 </div>
+
+<style lang="scss">
+  .slipt {
+    &--cta {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-areas: "contenido" "imagen";
+      gap: 4rem;
+
+      > *:first-child {
+        grid-area: contenido;
+        --_space: 2em;
+      }
+
+      > *:last-child {
+        grid-area: imagen;
+        width: 70%;
+        justify-self: center;
+      }
+
+      @media screen and (width >= 768px) {
+        grid-template-columns: 5fr 3fr;
+        grid-template-areas: "contenido imagen";
+
+        > *:last-child {
+          width: 100%;
+          justify-self: auto;
+          display: block;
+        }
+      }
+    }
+
+    &--about {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+
+      @media screen and (width >= 768px) {
+        grid-template-columns: 6fr 4fr;
+      }
+    }
+
+    &--form {
+      display: grid;
+      grid-template-areas: "formulario";
+      grid-template-columns: 1fr;
+      gap: 3rem;
+
+      > form {
+        grid-area: formulario;
+      }
+
+      > *:last-child {
+        grid-area: imagen;
+        display: none;
+      }
+
+      @media screen and (width >= 768px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "imagen formulario";
+
+        > *:last-child {
+          display: block;
+          width: 70%;
+          align-self: end;
+          justify-self: end;
+        }
+      }
+    }
+  }
+</style>

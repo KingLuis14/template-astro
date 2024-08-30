@@ -7,18 +7,121 @@ import Split from "@/components/ui/Split.astro";
 
 <SectionPage theme="background2">
   <Split size="form">
-    <form class="form color-white-300">
+    <form
+      class="form color-white-300"
+      action="https://formsubmit.co/enriquecalero284@gmail.com"
+      method="POST"
+    >
       <Typografic as="h2" theme="theme2">Contacto</Typografic>
-      <input type="text" aria-label="nombre" placeholder="Nombre" />
-      <input type="email" aria-label="Correo" placeholder="Correo" />
       <input
+        type="text"
+        name="nombre"
+        aria-label="nombre"
+        placeholder="Nombre"
+      />
+      <input
+        type="email"
+        name="email"
+        aria-label="Correo"
+        placeholder="Correo"
+      />
+      <input
+        name="Numero de contacto"
         type="tel"
         aria-label="Numero de contacto"
         placeholder="Número de contacto"
       />
-      <textarea aria-label="Mensaje" placeholder="Mensaje"></textarea>
+      <textarea aria-label="Mensaje" name="Mensaje" placeholder="Mensaje"
+      ></textarea>
+      <!-- <div
+        class="g-recaptcha"
+        style="height: 78px;"
+        data-theme="dark"
+        data-sitekey="6LcsZiwqAAAAAGioeZ1q9svKMLhpg0K726TAwFFR"
+      >
+      </div> -->
       <Button as="button">Enviar</Button>
     </form>
     <img src="/img/form.svg" alt="cta accion" />
   </Split>
 </SectionPage>
+
+<style lang="scss">
+  .form {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+
+    > *:first-child {
+      padding-block: 0.7rem;
+    }
+
+    > input,
+    textarea {
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 0.5rem;
+
+      &:focus {
+        outline: 2px solid var(--color-blue-500);
+      }
+
+      &:not(:placeholder-shown):valid {
+        outline: 2px solid rgb(30, 236, 61);
+      }
+      &:not(:placeholder-shown):invalid {
+        outline: 2px solid crimson;
+      }
+      &:focus:invalid {
+        outline: 2px solid rgb(245, 226, 21);
+      }
+    }
+
+    > textarea {
+      min-height: 180px;
+    }
+
+    > button {
+      padding-block: 0.8em;
+    }
+  }
+</style>
+
+<!-- <script is:inline src="https://www.google.com/recaptcha/api.js"></script> -->
+<!-- 
+<script>
+  const $Form = document.querySelector("form");
+
+  $Form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // const response = grecaptcha.getResponse();
+
+    // if (!response.length > 0) {
+    //   alert("Marca el captcha");
+    //   return;
+    // }
+
+    const formData = new FormData(e.target);
+    formData.delete("g-recaptcha-response");
+    const responseForm = await fetch(
+      "https://formsubmit.co/ajax/enriquecalero284@gmail.com",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (responseForm.ok) {
+      alert("registrado con exito");
+      console.log(responseForm);
+    } else {
+      alert("no se pudo registrar", responseForm);
+      console.log(responseForm);
+    }
+
+    // console.log("has completado el captcha", response.length);
+  });
+</script> -->

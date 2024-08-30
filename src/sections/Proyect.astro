@@ -7,16 +7,34 @@ import Wrapper from "@/components/ui/Wrapper.astro";
 import type { Proyect } from "@/interfaces/Proyect";
 
 const proyect1: Proyect = {
-  title: "Proyecto Game Page",
-  description: "Sitio web de juegos y ventas",
-  image: "https://portfolio-peter2.vercel.app/assets/tensei2-3STPUW1i.webp",
-  color: "#09071d",
+  title: "Instituto IFT",
+  description: "Sitio web de educación",
+  image: "/src/assets/img/ift.png",
+  url: "https://ift.pe/",
+  color: "#04051a",
   tags: ["discord", "facebook"],
 };
 const proyect2: Proyect = {
-  title: "Proyecto Pelis en HD",
-  description: "Sitio web de peliculas",
-  image: "https://portfolio-peter2.vercel.app/assets/movonline-C3lBmh0H.webp",
+  title: "Balanzas del Oriente",
+  description: "Sitio web de venta de balanzas",
+  url: "https://balorien.com/",
+  image: "/src/assets/img/balanzas.png",
+  color: "#1fbc61",
+  tags: ["discord", "github"],
+};
+const proyect3: Proyect = {
+  title: "Instituto IISEP",
+  description: "Sitio web de educación",
+  image: "/src/assets/img/iisep.png",
+  url: "https://iisepsedecomas.netlify.app/",
+  color: "#2734e7",
+  tags: ["discord", "github"],
+};
+const proyect4: Proyect = {
+  title: "Tienda de Guitar",
+  description: "Sitio web de venta de guitarras",
+  image: "/src/assets/img/guitar.png",
+  url: "https://guitarshopvue.netlify.app/",
   color: "black",
   tags: ["discord", "github"],
 };
@@ -24,12 +42,13 @@ const proyect2: Proyect = {
 
 <SectionPage>
   <Wrapper>
-    <Typografic as="h2" size="sectionTitle" theme="theme2">Proyectos</Typografic>
-    <div class="display:grid gap:4 @md/gridTemplateColumns:2">
+    <Typografic as="h2" size="sectionTitle" theme="theme2">Proyectos</Typografic
+    >
+    <div class="proyect-container">
       <CardProyect data={proyect1} />
       <CardProyect data={proyect2} />
-      <CardProyect data={proyect1} />
-      <CardProyect data={proyect2} />
+      <CardProyect data={proyect3} />
+      <CardProyect data={proyect4} />
     </div>
     <footer class="text-center" style="margin-block: 2rem;">
       <Button as="button">Ver todos los proyectos</Button>
@@ -38,3 +57,15 @@ const proyect2: Proyect = {
     <!-- <Button as="button" theme="theme3">Ver todos los proyectos</Button> -->
   </Wrapper>
 </SectionPage>
+
+<style lang="scss">
+  .proyect-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @media screen and (width >= 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

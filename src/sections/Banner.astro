@@ -5,14 +5,49 @@ import Wrapper from "@/components/ui/Wrapper.astro";
 ---
 
 <section class="hero">
-    
-    <Wrapper classes="textFlow text-center">
-        <Typografic as="h1" size="superTitle" theme="theme2">Enrique Calero</Typografic>
-        <p>Diseñador y Desarrollador <br> Web Frontend</p>
-        <footer class="display:flex gap:5 justifyContent:center" >
-            <Button as="button">Contratame</Button>
-        <Button as="button">Descargar CV</Button>
-        </footer>
-        
-    </Wrapper>
+  <Wrapper classes="textFlow text-center">
+    <Typografic as="h1" size="superTitle" theme="theme2"
+      >Enrique Calero</Typografic
+    >
+    <p>Diseñador y Desarrollador <br /> Web Frontend</p>
+    <footer>
+      <Button as="button">Contratame</Button>
+      <Button as="button" theme="theme3">Descargar CV</Button>
+    </footer>
+  </Wrapper>
 </section>
+
+<style lang="scss">
+  .hero {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 800px;
+      // background-color: crimson;
+      z-index: -50;
+      background-image: url("/img/background-1.webp");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      filter: blur(45px);
+    }
+
+    > div {
+      color: white;
+      height: 100svh;
+      display: grid;
+      place-content: center;
+
+      > footer {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+    }
+  }
+</style>

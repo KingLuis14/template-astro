@@ -2,18 +2,47 @@
 import Typografic from "@/components/Typografic.astro";
 import SectionPage from "@/components/ui/SectionPage.astro";
 import Split from "@/components/ui/Split.astro";
-
-
 ---
 
 <SectionPage>
-    <Split size="about"  >
-        <div class="textFlow alignItems:center">
-            <Typografic as="h2" size="title1" theme="theme2"  >Conoceme</Typografic>
-            <p class="color-white-300">Hola soy Enrique Calero, inicie en el mundo del Diseño Web a los 18 años. Actualmente diseño y maqueto sitios web a medida.</p>
-            <p class="color-white-300">Me encanta maquetar sitios web a partir de una pieza grafica, siguiendo buenas practicas</p>
-            <p class="color-white-300">Antes de entregar un proyecto me gusta optimizar el rendimiento web, para ofrecer una mejor experiencia a sus usuario</p>
-        </div>
-        <img class="aspect-ratio-box" src="https://i.pinimg.com/736x/8b/c1/03/8bc103afbea75b591370177c9b18e52d.jpg" alt="">
-    </Split>
+  <Split size="about">
+    <div class="textFlow alignItems:center">
+      <Typografic as="h2" size="title1" theme="theme2">Conóceme</Typografic>
+      <p class="color-white-300">
+        Hola soy Enrique Calero, inicie en el mundo del Diseño Web a los 18
+        años. Actualmente <span class="underline-text fw-700"
+          >diseño y maqueto sitios web a medida.</span
+        >
+      </p>
+      <p class="color-white-300">
+        Me encanta maquetar sitios web <span class="underline-text fw-700"
+          >a partir de una pieza grafica</span
+        >, siguiendo buenas practicas
+      </p>
+      <p class="color-white-300">
+        Antes de entregar un proyecto me gusta <span
+          class="underline-text fw-700">optimizar el rendimiento web</span
+        >, para ofrecer una mejor experiencia a sus usuario
+      </p>
+    </div>
+    <img
+      class="aspect-ratio-box"
+      src="https://i.pinimg.com/736x/8b/c1/03/8bc103afbea75b591370177c9b18e52d.jpg"
+      alt=""
+    />
+  </Split>
 </SectionPage>
+
+<style lang="scss">
+  .underline-text {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-blue-400),
+      var(--color-blue-500)
+    );
+    // background-size: 100% 3px;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
