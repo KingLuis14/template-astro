@@ -24,6 +24,7 @@ export const server = {
       let transporter = createTransport({
         host: import.meta.env.EMAIL_HOST,
         port: import.meta.env.EMAIL_PORT,
+        secure: true,
         auth: {
           user: import.meta.env.EMAIL,
           pass: import.meta.env.EMAIL_PASS,
