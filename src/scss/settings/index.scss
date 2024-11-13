@@ -1,2 +1,7 @@
-@forward './breakpoint.scss' ;
-@forward './mixins.scss' ;
+@forward "./typography.scss";
+@forward "./colors.scss";
+@forward "./sizes.scss";
+@forward "./breakpoints.scss";
+@forward "./mixins";
+// @forward "./tokens";
+@forward "./functions";

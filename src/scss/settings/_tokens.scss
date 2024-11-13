@@ -1,0 +1,26 @@
+@use './colors' as *;
+
+// COntextual tokens
+
+$text-color-default: $color-neutral-800;
+$text-color-default-invert: $color-neutral-200;
+$bg-color-primary: $color-green-100;
+$bg-color-secondary: $color-green-500;
+$bg-color-contrast: $color-blue-900;
+
+// Buttons
+
+$button-primary-text-color: var(--button-primary-text-color, $color-neutral-000);
+$button-primary-bg-color: var(--button-primary-bg-color, $bg-color-secondary);
+$button-primary-text-color-hover: var(button-primary-text-color-hover, $color-neutral-000 );
+$button-primary-bg-color-hover: var(--button-primary-bg-color-hover, $color-green-700);
+
+$button-secondary-text-color: var(--button-secondary-text-color, $color-neutral-950 );
+$button-secondary-bg-color: var(--button-secondary-bg-color, $color-yellow-300 );
+$button-secondary-text-color-hover: var(--button-secondary-text-color-hover, $color-neutral-950 );
+$button-secondary-bg-color-hover: var(--button-secondary-bg-color-hover, $color-yellow-500 );
+
+$button-contrast-text-color: var(--button-contrast-text-color, $color-neutral-950 );
+$button-contrast-bg-color: var(--button-contrast-bg-color, $color-neutral-000 );
+$button-contrast-text-color-hover: var(--button-contrast-text-color-hover, $color-neutral-000 );
+$button-contrast-bg-color-hover: var(--button-contrast-bg-color-hover, $color-neutral-950 );

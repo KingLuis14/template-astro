@@ -1,0 +1,3 @@
+@use "../settings/" as *;
+
+@include generate-utilities-class($font-sizes, "fs", "font-size");

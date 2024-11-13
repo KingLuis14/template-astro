@@ -1,19 +1,34 @@
----
-import Button from "@/components/Atoms/Button.astro";
-import Typografic from "@/components/Typografic.astro";
-import SectionPage from "@/components/ui/SectionPage.astro";
-import Split from "@/components/ui/Split.astro";
-import Wrapper from "@/components/ui/Wrapper.astro";
----
 
-<SectionPage theme="theme2">
-  <Split size="cta">
-    <div class="textFlow text-center @md/text-left">
-      <Typografic as="h2" theme="theme2" size="superTitleSub"
-        >¿Tienes un negocio y quieres a dar a conocer tus servicios en internet?</Typografic
-      >
-      <Button as="a" theme="theme2">Contactar</Button>
-    </div>
-    <img src="/img/cta.svg" alt="cta accion" />
-  </Split>
-</SectionPage>
+
+<section class="section-page">
+  <div class="wrapper container">
+    <h2 class="fs-title-1 color-white-000">
+      ¿Tienes un negocio y quieres a dar a conocer tus servicios en internet?
+    </h2>
+    <a href="/#contacto" class="button button--primary">Contáctame</a>
+  </div>
+</section>
+
+<style lang="scss">
+
+  .container{
+    text-align: center;
+    
+    border: 3px solid var(--blue-500);
+    padding:  clamp(2.5rem, 3.4595vw + 1.6892rem, 4.5rem) 1rem;
+    background-image: linear-gradient(90deg , #272D37 , transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-radius: .75rem;
+
+    > * {
+      max-width: 40ch;
+      margin-inline: auto;
+    }
+
+
+  }
+
+
+</style>

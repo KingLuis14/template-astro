@@ -81,11 +81,11 @@ const { size, classes, variantWrapper = "large", ...attrs } = Astro.props;
       grid-template-columns: 1fr;
       gap: 3rem;
 
-      > form {
+      > :global(form) {
         grid-area: formulario;
       }
 
-      > *:last-child {
+      > :global(img) {
         grid-area: imagen;
         display: none;
       }
@@ -94,7 +94,7 @@ const { size, classes, variantWrapper = "large", ...attrs } = Astro.props;
         grid-template-columns: 1fr 1fr;
         grid-template-areas: "imagen formulario";
 
-        > *:last-child {
+        > :global(img) {
           display: block;
           width: 70%;
           align-self: end;

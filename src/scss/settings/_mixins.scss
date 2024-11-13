@@ -1,0 +1,29 @@
+@use './breakpoints.scss' as *;
+
+@mixin media-Query($breakpoint) {
+   @if map-has-key($breakpoints, $breakpoint) {
+      @media screen and (width > map-get($breakpoints, $breakpoint)) {
+         @content;
+      }
+   } @else {
+      @media screen and (width > $breakpoint) {
+         @content;
+      }
+   }
+}
+
+@mixin generate-custom-properties($mapa) {
+   @each $name, $value in $mapa {
+
+      --#{$name}: #{$value};
+      
+   }
+}
+
+@mixin generate-utilities-class($mapa, $prefix, $property) {
+  @each $name, $value in $mapa {
+    .#{$prefix}-#{$name} {
+      #{$property}: var(--#{$name});
+    }
+  }
+}

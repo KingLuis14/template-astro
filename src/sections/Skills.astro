@@ -1,0 +1,100 @@
+---
+import Skill from "@/components/IconSkill.astro";
+const HabilidadesData = [
+  {
+    icono: "html",
+    texto: "Html",
+  },
+  {
+    icono: "css",
+    texto: "Css",
+  },
+  {
+    icono: "javascript",
+    texto: "JavaScript",
+  },
+  {
+    icono: "sass",
+    texto: "Sass",
+  },
+  {
+    icono: "astro",
+    texto: "Astro",
+  },
+  {
+    icono: "typescript",
+    texto: "TypeScript",
+  },
+  {
+    icono: "react",
+    texto: "React",
+  },
+];
+
+const HabilidadesDataDuplicada = [...HabilidadesData, ...HabilidadesData];
+---
+
+<section class="section-page" id="habilidades">
+  <div class="wrapper section-page-flow">
+    <h2 class="fs-title-1 color-white-000">Habilidades</h2>
+    <div class="Skill" style="overflow: hidden;">
+      <ul class="Skill__list" id="carruselTrack">
+        {
+          HabilidadesDataDuplicada.map(({ icono, texto }) => {
+            return (
+              <li>
+                <Skill nameIcon={icono} texto={texto} />
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+    <div class="Skill" style="overflow: hidden; " >
+      <ul class="Skill__list" id="carruselTrack" style="animation-direction: reverse;"  >
+        {
+          HabilidadesDataDuplicada.map(({ icono, texto }) => {
+            return (
+              <li>
+                <Skill nameIcon={icono} texto={texto} />
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .Skill {
+    mask: linear-gradient(
+      90deg,
+      transparent,
+      white 20%,
+      white 80%,
+      transparent
+    );
+    &__list {
+      display: flex;
+      animation: moverInfinito 14s forwards linear infinite;
+      
+      gap: 40px;
+      width: max-content;
+
+      &:hover {
+      animation-play-state: paused;
+    }
+
+      > :global(*) {
+        flex-shrink: 0;
+      }
+
+      @keyframes moverInfinito {
+        to {
+          transform: translate(calc(-50% - 20px));
+        }
+      }
+    }
+  }
+</style>

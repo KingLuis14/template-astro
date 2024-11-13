@@ -1,48 +1,40 @@
 ---
-import Typografic from "@/components/Typografic.astro";
-import SectionPage from "@/components/ui/SectionPage.astro";
 import Split from "@/components/ui/Split.astro";
+import { Image } from "astro:assets";
+import foto from "@/assets/img/Group 52.png";
 ---
 
-<SectionPage>
+<section class="section-page" id="conoceme">
   <Split size="about">
-    <div class="textFlow alignItems:center">
-      <Typografic as="h2" size="title1" theme="theme2">Conóceme</Typografic>
-      <p class="color-white-300">
-        Hola soy Enrique Calero, inicie en el mundo del Diseño Web a los 18
-        años. Actualmente <span class="underline-text fw-700"
-          >diseño y maqueto sitios web a medida.</span
-        >
-      </p>
-      <p class="color-white-300">
-        Me encanta maquetar sitios web <span class="underline-text fw-700"
-          >a partir de una pieza grafica</span
-        >, siguiendo buenas practicas
-      </p>
-      <p class="color-white-300">
-        Antes de entregar un proyecto me gusta <span
-          class="underline-text fw-700">optimizar el rendimiento web</span
-        >, para ofrecer una mejor experiencia a sus usuario
-      </p>
+    <div class="textFlow alignItems:center section-page-flow">
+      <h2 class="fs-title-1 color-white-000">Cónoceme</h2>
+      <div>
+        <p class="color-white-200">
+          Hola soy Enrique Calero, inicie en el mundo del Diseño Web a los 18
+          años. Actualmente <strong class="color-white-000 underline-text fw-700">diseño y maqueto sitios web a medida.</strong>
+        </p>
+        <br/>
+        <p class="color-white-200">
+          Me encanta maquetar sitios web <strong class="color-white-000 underline-text fw-700"
+            >a partir de una pieza grafica</strong
+          >, siguiendo buenas practicas
+        </p>
+        <br/>
+        <p class="color-white-200">
+          Antes de entregar un proyecto me gusta <strong
+            class="color-white-000 underline-text fw-700">optimizar el rendimiento web</strong
+          >, para ofrecer una mejor experiencia a sus usuario
+        </p>
+      </div>
+      
     </div>
-    <img
-      class="aspect-ratio-box"
-      src="https://i.pinimg.com/736x/8b/c1/03/8bc103afbea75b591370177c9b18e52d.jpg"
-      alt=""
+    <Image
+    style={`aspect-ratio: ${foto.width} / ${foto.height}`}
+      width={foto.width}
+      src={foto}
+      alt="enrique calero"
     />
   </Split>
-</SectionPage>
+</section>
 
-<style lang="scss">
-  .underline-text {
-    background-image: linear-gradient(
-      90deg,
-      var(--color-blue-400),
-      var(--color-blue-500)
-    );
-    // background-size: 100% 3px;
-    background-repeat: no-repeat;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-</style>
+

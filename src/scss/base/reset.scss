@@ -1,0 +1,125 @@
+@use "../settings/" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+html{
+  scroll-behavior: smooth;
+  scroll-padding-block-start: 2rem;
+}
+
+body {
+  font-family: "inter", system-ui;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background-color: #02050F;
+  text-rendering: optimizeSpeed;
+  overflow-x: hidden;
+  > footer {
+    margin-top: auto;
+  }
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: inherit;
+}
+
+ul[class]{
+  padding: 0;
+
+  > li {
+    list-style: none;
+  }
+}
+
+
+
+picture,
+video {
+  display: block;
+  width: 100%;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  object-fit: cover;
+  text-indent: -9999px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+}
+
+input[type="submit"]{
+  border: none;
+  font: inherit;
+}
+
+textarea{
+  font: inherit;
+  resize: none;
+}
+
+h1,
+.fs-title1 {
+  font-size: var(--title-1);
+}
+
+h2,
+.fs-title2 {
+  font-size: var(--title-2);
+}
+
+h3,
+.fs-title3 {
+  font-weight: 500;
+  font-size: var(--title-3);
+  line-height: 1.25;
+}
+
+h4,
+.fs-normal, p {
+  font-size: var(--normal);
+}
+
+h5,
+small,
+.fs-small {
+  font-size: var(--small-1);
+}

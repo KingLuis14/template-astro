@@ -1,0 +1,59 @@
+.button {
+   padding: 0.65em 1.6em;
+   border-radius: 0.25em;
+   font-weight: 500;
+   cursor: pointer;
+   text-align: center;
+
+   &--accent {
+      background-color: var(--green-500);
+   }
+
+   &--oneline{
+      outline: 1px solid  var(--blue-600);
+      outline-offset: -1px;
+      background-color: #2623fb19;
+   }
+
+   &--center {
+      display: block;
+      margin-inline: auto;
+      text-align: center;
+      width: max-content;
+   }
+
+   &--content {
+      width: fit-content;
+   }
+
+   &--primary {
+      background-color: var(--blue-600);
+      color: var(--white-000);
+
+      &:hover {
+         background-color: var(--blue-800);
+      }
+   }
+
+   &--loading {
+      
+      color: var(--white-000);
+      background: linear-gradient(90deg, var(--blue-400) 0%, var(--blue-600) 50%, var(--blue-400) 100%);
+      background-size: 200% 100%;
+      animation: loadingBackground 1.5s ease-in-out infinite;
+   }
+
+   &--navigation {
+      padding: 0.5em 1.2em;
+      font-weight: 400;
+   }
+
+   @keyframes loadingBackground {
+      0% {
+         background-position: 200% 0;
+      }
+      100% {
+         background-position: -200% 0;
+      }
+   }
+}

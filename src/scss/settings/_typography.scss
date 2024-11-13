@@ -1,0 +1,12 @@
+$fuente: 'inter';
+
+$font-sizes: (
+   "super-title-1": clamp(3.95rem, 3.73rem + 1.13vw, 4.75rem),
+   "super-title-2": clamp(2.861rem, 2.6975rem + 0.8174vw, 3.4332rem),
+   "title-1": clamp(1.8311rem, 1.7264rem + 0.5232vw, 2.1973rem),
+   "title-2": clamp(1.4648rem, 1.3811rem + 0.4185vw, 1.7578rem),
+   "title-3": clamp(1.1719rem, 1.1049rem + 0.3348vw, 1.4063rem),
+   "normal": clamp(0.9375rem, 0.8839rem + 0.2679vw, 1.125rem),
+   "small-1": clamp(0.75rem, 0.7071rem + 0.2143vw, 0.9rem),
+   "small-2": clamp(0.6rem, 0.5657rem + 0.1714vw, 0.72rem),
+);

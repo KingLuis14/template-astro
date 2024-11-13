@@ -1,0 +1,278 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  position?: "sticky";
+}
+
+const { position } = Astro.props;
+
+const currenpath = Astro.url.pathname;
+
+const links = [
+  {
+    href: "/",
+    text: "Inicio",
+  },
+  {
+    href: "/#proyectos",
+    text: "Proyectos",
+  },
+  {
+    href: "/#habilidades",
+    text: "Habilidades",
+  },
+  {
+    href: "/#conoceme",
+    text: "Conóceme",
+  },
+
+  {
+    href: "/#contacto",
+    text: "Contacto",
+  },
+];
+---
+
+<header
+  class="menu"
+  id="menu"
+  data-sticky={position === "sticky" ? "" : undefined}>
+  <div class="wrapper menu__container">
+    <a href="/">
+      <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 1024 1024"><path fill="#fff" d="M384 912h496c17.7 0 32-14.3 32-32V340H384zm496-800H384v164h528V144c0-17.7-14.3-32-32-32m-768 32v736c0 17.7 14.3 32 32 32h176V112H144c-17.7 0-32 14.3-32 32"/></svg>
+      <!-- <img src="/img/logo.png" alt="logo del intituto ift" class="menu__logo" /> -->
+    </a>
+
+    <div
+      style="display: flex; align-items: center; gap: 1rem; margin-inline-start: auto;">
+      <nav class="menu__navigation">
+        <ul class="menu__list">
+          {
+            links.map(({ href, text }) => (
+              <li>
+                <a
+                  class:list={[
+                    "button button--navigation menu__link",
+                    {
+                      active: href === currenpath,
+                    },
+                  ]}
+                  href={href}
+                  aria-label={`ir a la pagina de ${text} `}>
+                  {text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <button class="menu__btn" aria-label="abrir menu de navegacion">
+      <Icon name={"BtnToogle"} size={25} />
+    </button>
+  </div>
+</header>
+
+<style lang="scss">
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s;
+
+    &[data-sticky] {
+      position: sticky;
+      background-color: white;
+      box-shadow: 0 4px 60px #00000014;
+
+      .menu__link:not(.active) {
+        color: black;
+      }
+
+      .button-counter {
+        color: black;
+      }
+    }
+
+    .menu__btn{
+         color: white;
+      }
+
+    &.theme-ligth {
+      background-color: #02050ffd; // #1E50FF 50%
+      box-shadow: 0 4px 60px #00000014;
+
+      // .menu__link:not(.active) {
+      //   color: black;
+      // }
+
+      .button-counter {
+        color: black;
+      }
+      
+
+      .menu__link:not(.active):hover {
+        background-color: var(--yellow-green-300);
+      }
+    }
+
+    &__container {
+      --heigth-menu: 80px;
+
+      display: flex;
+      height: var(--heigth-menu);
+      justify-content: space-between;
+      align-items: center;
+      padding-block: 0.5rem;
+      gap: 1rem;
+      // position: relative;
+    }
+
+    &__logo {
+      width: 8rem;
+    }
+
+    &__list {
+      display: flex;
+      gap: 1.5rem 0.5rem;
+
+      @media (width < 960px) {
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &__navigation {
+      @media (width < 960px) {
+         background-color: #02050ffd;
+        position: fixed;
+        z-index: -1;
+
+        top: var(--heigth-menu);
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        transform: translateY(calc(-100% - var(--heigth-menu)));
+        transition: transform 0.3s ease;
+
+        &.active {
+          transform: translateY(0);
+        }
+      }
+    }
+
+    &__link {
+      color: var(--white-000);
+      transition: background-color 0.4s;
+
+      &.active {
+        background-color: var(--blue-600);
+        color: var(--white-000);
+      }
+
+      &:not(.active):hover {
+        background-color: var(--yellow-green-800-opacity);
+      }
+
+      @media (width >= 960px) {
+        
+      }
+    }
+
+    &__btn {
+      @media (width >= 960px) {
+        display: none;
+      }
+    }
+  }
+
+  .button-counter {
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const $menuBtn = document.querySelector(".menu__btn");
+    const $menuNav = document.querySelector(".menu__navigation");
+    const $menuElement = document.querySelector("#menu:not([data-sticky])");
+
+    const isDesktop = () => window.matchMedia("(width >= 960px)").matches;
+
+    const throttle = (cb: (...args: any[]) => void, delay: number = 1000) => {
+      let shouldWait = false;
+      let waitingArgs: any[] | null;
+
+      const timeoutFunc = () => {
+        if (waitingArgs == null) {
+          shouldWait = false;
+        } else {
+          cb(...waitingArgs);
+          waitingArgs = null;
+          setTimeout(timeoutFunc, delay);
+        }
+      };
+
+      return (...args: any[]) => {
+        if (shouldWait) {
+          waitingArgs = args;
+          return;
+        }
+
+        cb(...args);
+        shouldWait = true;
+        setTimeout(timeoutFunc, delay);
+      };
+    };
+
+    const handleScroll = (): void => {
+      if (window.scrollY > 0) {
+        $menuElement?.classList.add("theme-ligth");
+      } else {
+        if ($menuNav?.classList.contains("active") && !isDesktop()) return;
+        $menuElement?.classList.remove("theme-ligth");
+      }
+    };
+
+    const handleResize = (): void => {
+      if (isDesktop()) {
+        $menuNav?.classList.remove("active");
+
+        if (window.scrollY === 0) {
+          $menuElement?.classList.remove("theme-ligth");
+        }
+      }
+    };
+
+    $menuBtn?.addEventListener("click", () => {
+      $menuNav?.classList.toggle("active");
+
+      if (window.scrollY === 0) {
+        $menuElement?.classList.toggle("theme-ligth");
+      }
+    });
+
+    window.addEventListener(
+      "scroll",
+      throttle(() => {
+        handleScroll();
+      }, 100)
+    );
+
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        handleResize();
+      }, 100)
+    );
+
+    handleScroll();
+  });
+</script>

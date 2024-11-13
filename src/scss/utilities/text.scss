@@ -1,0 +1,19 @@
+.text-lines {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: var(--lines);
+    -webkit-box-orient: vertical;
+}
+
+.lines--2{
+    --lines : 2;
+}
+.lines--3{
+    --lines : 2;
+}
+
+.title-section{
+    font-size: var(--title-1);
+    font-weight: 600;
+    width: min(80%, 30ch);
+}

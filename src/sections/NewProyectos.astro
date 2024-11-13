@@ -1,0 +1,249 @@
+---
+import celIft from "@/assets/img/celular-ift.png";
+import tabletIft from "@/assets/img/tablet-ift.png";
+import pcIft from "@/assets/img/pc-ift.png";
+import celBalanzas from "@/assets/img/celular-balanzas.png";
+import tabletBalanzas from "@/assets/img/tablet-balanzas.png";
+import pcBalanzas from "@/assets/img/pc-balanzas.png";
+import celIIsep from "@/assets/img/celular-iisep.png";
+import tabletIIsep from "@/assets/img/tablet-iisep.png";
+import pcIIsep from "@/assets/img/pc-iisep.png";
+
+
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+
+const ProyectosData = [{
+    titulo : 'Instituto IFT',
+    descripcion : 'Sitio web de educacion online',
+    images : [celIft, tabletIft, pcIft],
+    tags : ['astro', 'sass', 'typescript'],
+    links : {
+      web: 'https://ift.pe/',
+      repo : 'https://github.com/KingLuis14/IFT'
+    }
+},
+{
+    titulo : 'Balanzas del Oriente',
+    descripcion : 'Sitio web/ ecommerce de venta de balanzas',
+    images : [celBalanzas,tabletBalanzas,pcBalanzas],
+    tags : ['html', 'css', 'javascript', 'astro'],
+    links : {
+      web: 'https://balorien.com/',
+      repo : 'https://github.com/KingLuis14/balanzas'
+    }
+},
+{
+    titulo : 'Instituto IISEP',
+    descripcion : 'Sitio web de educacion en lima norte',
+    images : [celIIsep,tabletIIsep,pcIIsep],
+    tags : ['astro', 'css', 'typescript'],
+    links : {
+      web: 'https://iisepsedecomas.netlify.app/',
+      repo : 'https://github.com/KingLuis14/Iisep-Comas'
+    }
+}
+]
+
+
+
+---
+
+<section class="section-page" id="proyectos">
+  <div class="wrapper section-page-flow">
+    <h2 class="fs-title-1 color-white-000">Proyectos</h2>
+
+    <ul class="container">
+      {
+        ProyectosData.map( proyec => (
+          <li>
+             <article class="proyectCard">
+                <!-- Encabezado del proyecto con controles de imagen -->
+                <header class="proyectCard__header">
+                  <div
+                    class="proyectCard__image-controls"
+                    role="group"
+                    aria-label="Controles para cambiar la imagen del proyecto">
+                    {
+                      proyec.images.map( (img, index) => (
+                      <button aria-label="Vista previa 2" class:list={['proyectCard__button-control', { active: index === proyec.images.length - 1 } ]} >
+                        <Image 
+                          src={img}
+                          style={`aspect-ratio: ${img.width} / ${img.height}`}
+                          width={img.width / 2}
+                          alt="imagen 2"
+                        />
+                      </button>
+                      ))
+                    }
+                    
+                    
+                  </div>
+                  <Image 
+                  class="Image-preview"
+                  style={`aspect-ratio: ${proyec.images.at(2).width} / ${proyec.images.at(2).height}`}
+                        src={proyec.images.at(2)}
+                        width={proyec.images.at(2).width}
+                        alt="imagen del proyecto web"
+                        />
+                </header>
+
+                <!-- Sección para etiquetas -->
+                <ul class="proyectCard__list">
+                  {
+                    proyec.tags.map( tag => (
+                    <li class="fs-small-1 color-white-200">
+                      <Icon name={tag}  />
+                      {tag}
+                    </li>
+                    ))
+                  }
+                  
+                </ul>
+
+                <!-- Sección de descripción -->
+                <div class="proyectCard__content">
+                  <h3 class="color-white-000">{ proyec.titulo}</h3>
+                  <p class="color-white-200"> { proyec.descripcion } </p>
+                  <footer>
+                  <a href={ proyec.links.web } target="_blank"  class="button button--primary">Sitio web</a>
+                  <a href={ proyec.links.repo } target="_blank"  class="button button--oneline">Github</a>
+                </footer>
+                </div>
+
+                <!-- Sección de acciones o enlaces -->
+                
+            </article>
+          </li>
+        ))
+      }
+
+      
+     
+    </ul>
+  </div>
+</section>
+
+
+<style lang="scss">
+
+  .container{
+    display: grid;
+    gap: 1.5rem;
+
+      @media (width >= 768px){
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+  }
+
+  .proyectCard{
+
+    background-color: #272d374c;
+    padding: 1rem;
+    color: var(--white-000);
+    display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-radius: .5rem;
+
+
+
+    &__header{
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      // background-color: coral;
+    }
+
+
+    &__image-controls{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    &__content{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      > footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+    }
+
+    &__list{
+      display: flex;
+      gap: 1rem;
+      
+
+      > li {
+        border: 1px solid var(--white-200);
+        border-radius: 100vh;
+        padding: .2em .8em;
+        display: flex;
+        align-items: center;
+        gap: .5em;
+        
+      }
+    }
+
+    &__button-control{
+
+      > img {
+        pointer-events: none;
+      }
+
+      &.active{
+        filter: drop-shadow(0px 0px 14px var(--blue-600));
+      }
+      
+
+      &:hover{
+        filter: drop-shadow(0px 0px 14px var(--blue-600));
+        // box-shadow: 0px 0px 20px -1px var(--blue-600);
+      }
+
+    }
+
+
+  }
+
+</style>
+
+
+<script>
+
+  document.addEventListener('astro:page-load', ()=> {
+
+
+    const $SectionProyectos = document.getElementById('proyectos');
+
+  $SectionProyectos?.addEventListener('click', function (event: MouseEvent) {
+    const $Element = event.target as HTMLElement;
+    // console.log($Element);
+
+    if($Element.matches('.proyectCard__button-control')){
+      [...$Element.parentElement.children].forEach( elem => {
+        elem.classList.remove('active');
+      })
+      
+      $Element.classList.add('active');
+      const $ImgSrc = $Element.querySelector('img').getAttribute('src');
+      const $ImgPreview = $Element.parentElement.nextElementSibling;
+      console.log({$ImgSrc, $ImgPreview});
+      $ImgPreview.setAttribute('src', $ImgSrc);
+    }
+
+});
+
+  })
+
+  
+
+
+
+</script>

@@ -36,16 +36,4 @@ const { size = "large", align, textcolor, classes, ...attrs } = Astro.props;
   <slot />
 </div>
 
-<style lang="scss" is:global>
-  .wrapper {
-    width: min(90%, var(--max-width));
-    margin-inline: auto;
 
-    &--lg {
-      --max-width: 1100px;
-    }
-    &--sm {
-      --max-width: 900px;
-    }
-  }
-</style>

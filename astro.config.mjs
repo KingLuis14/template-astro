@@ -3,11 +3,16 @@ import icon from "astro-icon";
 
 import purgecss from "astro-purgecss";
 
+import netlify from "@astrojs/netlify";
+
 // https://astro.build/config
 export default defineConfig({
   devToolbar: {
     enabled: false
   },
+
+  
+
   integrations: [icon(), purgecss({
     extractors : [
       {
@@ -16,5 +21,8 @@ export default defineConfig({
           extensions: ["astro", "html"],
       }
     ]
-  })]
+  })],
+
+  output: "hybrid",
+  adapter: netlify()
 });

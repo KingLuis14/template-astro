@@ -1,0 +1,4 @@
+@use "../settings/" as *;
+
+@include generate-utilities-class($colors, "color", "color");
+@include generate-utilities-class($colors, "bg-color", "background-color");

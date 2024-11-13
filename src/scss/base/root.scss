@@ -1,0 +1,17 @@
+@use "../settings/" as *;
+
+
+:root{
+  @include generate-custom-properties($colors);
+  @include generate-custom-properties($font-sizes);
+      --wrapper-width: min(90%, 1200px);
+    --wrapper-margin: calc((100% - var(--wrapper-width)) / 2);
+    --padding-section: clamp(3.5rem, 1.9592vw + 3.0408rem, 5rem);
+
+    --header-heigth: clamp(3rem, 4vw + 2rem, 5rem);
+}
+
+
+
+
+

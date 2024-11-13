@@ -1,5 +1,8 @@
 ---
-import "@/scss/main.scss";
+import Navbar from "@/components/Navbar.astro";
+import "@/scss/index.scss";
+import Footer from "@/sections/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
 // import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
@@ -26,7 +29,7 @@ const { titulo, descripction, imagen } = Astro.props;
       fetchpriority="high"
       rel="preload"
       as="font"
-      href="/fonts/inter-latin-variable-full-normal.woff2"
+      href="/fonts/Inter-VariableFont_wght-subset.woff2"
       type="font/woff2"
       crossorigin="anonymous"
     />
@@ -39,10 +42,16 @@ const { titulo, descripction, imagen } = Astro.props;
     <meta property="og:type" content="website" />
     <meta property="og:image" content={imagen} />
 
-    <!-- <ViewTransitions /> -->
+    <ViewTransitions />
   </head>
-  <body class="bg-color-blue-600">
-    <slot />
+  <body >
+    <!-- <header style="position: sticky; top: 0;" >hola</header> -->
+     <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    
   </body>
 </html>
 

@@ -1,0 +1,23 @@
+.loading-top{
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform .7s, opacity .7s;
+
+
+    &.ok{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.balanza-hero{
+    transform: scale(1);
+    
+    animation: pulse 1.5s 1s infinite alternate;
+
+    @keyframes pulse {
+        100%{
+            transform: scale(.8);
+        }
+    }
+}
