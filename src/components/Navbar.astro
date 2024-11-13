@@ -41,7 +41,6 @@ const links = [
   <div class="wrapper menu__container">
     <a href="/">
       <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 1024 1024"><path fill="#fff" d="M384 912h496c17.7 0 32-14.3 32-32V340H384zm496-800H384v164h528V144c0-17.7-14.3-32-32-32m-768 32v736c0 17.7 14.3 32 32 32h176V112H144c-17.7 0-32 14.3-32 32"/></svg>
-      <!-- <img src="/img/logo.png" alt="logo del intituto ift" class="menu__logo" /> -->
     </a>
 
     <div
@@ -55,7 +54,7 @@ const links = [
                   class:list={[
                     "button button--navigation menu__link",
                     {
-                      active: href === currenpath,
+                      // active: href === currenpath,
                     },
                   ]}
                   href={href}
@@ -115,9 +114,9 @@ const links = [
       }
       
 
-      .menu__link:not(.active):hover {
-        background-color: var(--yellow-green-300);
-      }
+      // .menu__link:not(.active):hover {
+      //   background-color: var(--yellow-green-300);
+      // }
     }
 
     &__container {
@@ -172,18 +171,18 @@ const links = [
       color: var(--white-000);
       transition: background-color 0.4s;
 
-      &.active {
+      &:hover {
         background-color: var(--blue-600);
         color: var(--white-000);
       }
 
-      &:not(.active):hover {
-        background-color: var(--yellow-green-800-opacity);
-      }
+      // &.active {
+      //   background-color: var(--blue-600);
+      //   color: var(--white-000);
+      // }
 
-      @media (width >= 960px) {
-        
-      }
+      
+
     }
 
     &__btn {

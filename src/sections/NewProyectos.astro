@@ -82,7 +82,7 @@ const ProyectosData = [{
                   </div>
                   <Image 
                   class="Image-preview"
-                  style={`aspect-ratio: ${proyec.images.at(2).width} / ${proyec.images.at(2).height}`}
+                  style={`transition: transform 0.2s ;aspect-ratio: ${proyec.images.at(2).width} / ${proyec.images.at(2).height}`}
                         src={proyec.images.at(2)}
                         width={proyec.images.at(2).width}
                         alt="imagen del proyecto web"
@@ -92,7 +92,7 @@ const ProyectosData = [{
                 <!-- Sección para etiquetas -->
                 <ul class="proyectCard__list">
                   {
-                    proyec.tags.map( tag => (
+                    proyec.tags.slice(0,3).map( tag => (
                     <li class="fs-small-1 color-white-200">
                       <Icon name={tag}  />
                       {tag}
@@ -130,7 +130,7 @@ const ProyectosData = [{
 
   .container{
     display: grid;
-    gap: 1.5rem;
+    gap: 1.65rem;
 
       @media (width >= 768px){
         grid-template-columns: repeat(2,minmax(0,1fr));
@@ -139,7 +139,8 @@ const ProyectosData = [{
 
   .proyectCard{
 
-    background-color: #272d374c;
+    height: 100%;
+    background-color: rgba(39, 45, 55, 0.55);
     padding: 1rem;
     color: var(--white-000);
     display: flex;
@@ -177,7 +178,8 @@ const ProyectosData = [{
 
     &__list{
       display: flex;
-      gap: 1rem;
+      gap: .6rem .8rem;
+      flex-wrap: wrap;
       
 
       > li {
@@ -217,12 +219,12 @@ const ProyectosData = [{
 
 <script>
 
-  document.addEventListener('astro:page-load', ()=> {
+  document.addEventListener('astro:page-load',()=> {
 
 
     const $SectionProyectos = document.getElementById('proyectos');
 
-  $SectionProyectos?.addEventListener('click', function (event: MouseEvent) {
+  $SectionProyectos?.addEventListener('click', async function (event: MouseEvent) {
     const $Element = event.target as HTMLElement;
     // console.log($Element);
 
@@ -233,9 +235,21 @@ const ProyectosData = [{
       
       $Element.classList.add('active');
       const $ImgSrc = $Element.querySelector('img').getAttribute('src');
-      const $ImgPreview = $Element.parentElement.nextElementSibling;
-      console.log({$ImgSrc, $ImgPreview});
-      $ImgPreview.setAttribute('src', $ImgSrc);
+      const $ImgPreview = $Element.parentElement.nextElementSibling as HTMLElement;
+      $ImgPreview.style.transform = 'scale(0.8)';
+
+      await new Promise(resolve => setTimeout(()=> {
+        $ImgPreview.setAttribute('src', $ImgSrc);
+        resolve("");
+      }, 200));
+        
+      // await new Promise(resolve => setTimeout(resolve,200));
+        requestAnimationFrame(() => {
+          $ImgPreview.style.transform = 'scale(1)';
+        });
+       
+       
+      
     }
 
 });
@@ -247,3 +261,43 @@ const ProyectosData = [{
 
 
 </script>
+
+<!-- <script>
+
+document.addEventListener('astro:page-load', () => {
+  const $SectionProyectos = document.getElementById('proyectos');
+
+  $SectionProyectos?.addEventListener('click', async function (event) {
+    const $Element = event.target as HTMLElement;
+
+    if ($Element.matches('.proyectCard__button-control')) {
+      [...$Element.parentElement.children].forEach(elem => {
+        elem.classList.remove('active');
+      });
+
+      $Element.classList.add('active');
+      const $ImgSrc = $Element.querySelector('img').getAttribute('src');
+      const $ImgPreview = $Element.parentElement.nextElementSibling as HTMLElement;
+
+      // Aplica una escala inicial para hacer el efecto "encogido"
+      $ImgPreview.style.transform = 'scale(0.8)';
+      $ImgPreview.style.transition = 'transform 0.3s';
+
+      // Usamos requestAnimationFrame para esperar a que la animación de "encogido" termine
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          // Cambiamos la escala a 1 para hacer el efecto "agrandado"
+          $ImgPreview.style.transform = 'scale(1)';
+
+          // Actualiza la imagen después de la animación para evitar parpadeos
+          $ImgPreview.addEventListener('transitionend', () => {
+            $ImgPreview.setAttribute('src', $ImgSrc);
+          }, { once: true });
+        }, 300); // Ajusta el tiempo si deseas que el efecto "encogido" sea más corto
+      });
+    }
+  });
+});
+
+
+</script> -->

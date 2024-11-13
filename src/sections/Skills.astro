@@ -53,7 +53,7 @@ const HabilidadesDataDuplicada = [...HabilidadesData, ...HabilidadesData];
     <div class="Skill" style="overflow: hidden; " >
       <ul class="Skill__list" id="carruselTrack" style="animation-direction: reverse;"  >
         {
-          HabilidadesDataDuplicada.map(({ icono, texto }) => {
+          HabilidadesDataDuplicada.reverse().map(({ icono, texto }) => {
             return (
               <li>
                 <Skill nameIcon={icono} texto={texto} />
@@ -83,7 +83,7 @@ const HabilidadesDataDuplicada = [...HabilidadesData, ...HabilidadesData];
       width: max-content;
 
       &:hover {
-      animation-play-state: paused;
+      // animation-play-state: paused;
     }
 
       > :global(*) {

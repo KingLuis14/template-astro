@@ -4,15 +4,12 @@ import Typografic from "@/components/Typografic.astro";
 import Wrapper from "@/components/ui/Wrapper.astro";
 
 import { getImage } from "astro:assets";
-import myBackground from "@/assets/img/porta-banner.png"
-
-const optimizedBackground = await getImage({src: myBackground, format: 'webp', width: 700, quality: 50,})
 
 
 
 ---
 
-<section class="hero" style={`--image : url(${optimizedBackground.src})`} >
+<section class="hero" style={`--image : url('/img/porta-banner.webp')`} >
   <div class="wrapper">
     <h1 class="fs-super-title-2">Enrique Calero</h1>
     <p class="color-white-200">Diseñador y Programador <br /> Web Frontend</p>
