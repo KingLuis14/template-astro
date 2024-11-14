@@ -38,7 +38,7 @@ const HabilidadesDataDuplicada = [...HabilidadesData, ...HabilidadesData];
   <div class="wrapper section-page-flow">
     <h2 class="fs-title-1 color-white-000">Habilidades</h2>
     <div class="Skill" style="overflow: hidden;">
-      <ul class="Skill__list" id="carruselTrack">
+      <ul class="Skill__list loading-top" id="carruselTrack">
         {
           HabilidadesDataDuplicada.map(({ icono, texto }) => {
             return (
@@ -50,8 +50,8 @@ const HabilidadesDataDuplicada = [...HabilidadesData, ...HabilidadesData];
         }
       </ul>
     </div>
-    <div class="Skill" style="overflow: hidden; " >
-      <ul class="Skill__list" id="carruselTrack" style="animation-direction: reverse;"  >
+    <div class="Skill " style="overflow: hidden; " >
+      <ul class="Skill__list loading-top" id="carruselTrack" style="animation-direction: reverse;"  >
         {
           HabilidadesDataDuplicada.reverse().map(({ icono, texto }) => {
             return (

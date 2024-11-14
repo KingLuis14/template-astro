@@ -38,7 +38,7 @@
    &--loading {
       
       color: var(--white-000);
-      background: linear-gradient(90deg, var(--blue-400) 0%, var(--blue-600) 50%, var(--blue-400) 100%);
+      background: linear-gradient(90deg, var(--blue-700) 0%, var(--blue-500) 50%, var(--blue-700) 100%);
       background-size: 200% 100%;
       animation: loadingBackground 1.5s ease-in-out infinite;
    }

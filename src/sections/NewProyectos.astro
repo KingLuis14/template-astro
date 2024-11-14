@@ -58,7 +58,7 @@ const ProyectosData = [{
       {
         ProyectosData.map( proyec => (
           <li>
-             <article class="proyectCard">
+             <article class="proyectCard loading-top">
                 <!-- Encabezado del proyecto con controles de imagen -->
                 <header class="proyectCard__header">
                   <div
@@ -183,12 +183,13 @@ const ProyectosData = [{
       
 
       > li {
-        border: 1px solid var(--white-200);
+        border: 1px solid rgb(168, 168, 168);
         border-radius: 100vh;
         padding: .2em .8em;
         display: flex;
         align-items: center;
         gap: .5em;
+        color: rgb(168, 168, 168);
         
       }
     }
@@ -261,43 +262,3 @@ const ProyectosData = [{
 
 
 </script>
-
-<!-- <script>
-
-document.addEventListener('astro:page-load', () => {
-  const $SectionProyectos = document.getElementById('proyectos');
-
-  $SectionProyectos?.addEventListener('click', async function (event) {
-    const $Element = event.target as HTMLElement;
-
-    if ($Element.matches('.proyectCard__button-control')) {
-      [...$Element.parentElement.children].forEach(elem => {
-        elem.classList.remove('active');
-      });
-
-      $Element.classList.add('active');
-      const $ImgSrc = $Element.querySelector('img').getAttribute('src');
-      const $ImgPreview = $Element.parentElement.nextElementSibling as HTMLElement;
-
-      // Aplica una escala inicial para hacer el efecto "encogido"
-      $ImgPreview.style.transform = 'scale(0.8)';
-      $ImgPreview.style.transition = 'transform 0.3s';
-
-      // Usamos requestAnimationFrame para esperar a que la animación de "encogido" termine
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          // Cambiamos la escala a 1 para hacer el efecto "agrandado"
-          $ImgPreview.style.transform = 'scale(1)';
-
-          // Actualiza la imagen después de la animación para evitar parpadeos
-          $ImgPreview.addEventListener('transitionend', () => {
-            $ImgPreview.setAttribute('src', $ImgSrc);
-          }, { once: true });
-        }, 300); // Ajusta el tiempo si deseas que el efecto "encogido" sea más corto
-      });
-    }
-  });
-});
-
-
-</script> -->

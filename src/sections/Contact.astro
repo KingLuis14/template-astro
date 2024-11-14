@@ -1,167 +1,211 @@
 ---
-import Button from "@/components/Atoms/Button.astro";
-import Typografic from "@/components/Typografic.astro";
-import SectionPage from "@/components/ui/SectionPage.astro";
-import Split from "@/components/ui/Split.astro";
+import SectionPage from '@/components/ui/SectionPage.astro';
+import Split from '@/components/ui/Split.astro';
 ---
 
 <SectionPage id="contacto">
-  <Split size="form">
-    <form class="form color-white-300" novalidate >
-      <h2 class="fs-title-1 color-white-000">Contacto</h2>
+   <Split size="form">
+      <form class="form color-white-300" novalidate>
+         <h2 class="fs-title-1 color-white-000">Contacto</h2>
 
-      <div class="form__group" data-group="name">
-        <label for="name">Nombre</label>
-        <input
-          id="name"
-          required
-          type="text"
-          name="name"
-          placeholder="Luis Enrique"
-        />
-        <small id="error-name" class="form__error"> </small>
-      </div>
+         <div class="form__group" data-group="name">
+            <label for="name">Nombre</label>
+            <input id="name" required type="text" name="name" placeholder="Luis Enrique" />
+            <small id="error-name" class="form__error"></small>
+         </div>
 
-      <div class="form__group" data-group="email">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          required
-          type="text"
-          name="email"
-          placeholder="tucorreo@gmail.com"
-        />
-        <small id="error-name" class="form__error"> </small>
-      </div>
-      <div class="form__group" data-group="mensaje">
-        <label for="mensaje">Mensaje</label>
-        <textarea
-          aria-label="Mensaje"
-          name="mensaje"
-          placeholder="Dejanos tu mensaje"></textarea>
-        <small id="error-name" class="form__error"> </small>
-      </div>
+         <div class="form__group" data-group="email">
+            <label for="email">Email</label>
+            <input id="email" required type="text" name="email" placeholder="tucorreo@gmail.com" />
+            <small id="error-name" class="form__error"></small>
+         </div>
+         <div class="form__group" data-group="mensaje">
+            <label for="mensaje">Mensaje</label>
+            <textarea aria-label="Mensaje" name="mensaje" placeholder="Dejanos tu mensaje"></textarea>
+            <small id="error-name" class="form__error"></small>
+         </div>
 
-      <input type="submit" value="Enviar" class="button button--primary">
-      
-    </form>
-    <img src="/img/form-user.svg" alt="cta accion"  />
-  </Split>
+         <input type="submit" id="send-button" value="Enviar" class="button button--primary" />
+
+         <div class="form__send">
+            <h2 class="fs-super-title-2">Correo enviado correctamente</h2>
+         </div>
+      </form>
+      <img src="/img/form-user.svg" alt="cta accion" class="loading-top" />
+   </Split>
 </SectionPage>
 
 <style lang="scss">
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    background-color: #272d37b8;
-    padding: 1.5rem;
-    border-radius: .5rem;
-
-    &__group {
-      // background-color: crimson;
+   .form {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      color: white;
+      gap: 1.5rem;
+      background-color: #272d37b8;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
 
-      input:-webkit-autofill {
+      &__group {
+         // background-color: crimson;
+         display: flex;
+         flex-direction: column;
+         gap: 0.5rem;
+         color: white;
+
+         input:-webkit-autofill {
             box-shadow: 0 0 0 1000px rgb(253, 253, 253) inset;
          }
 
-      > input,
-      textarea {
-        padding: 1em 0.75em;
-        border-radius: 0.5rem;
-        background-color: rgba(0, 0, 0, 0.2);
-        border: 1.5px solid transparent;
-        color: inherit;
-        font: inherit;
+         > input,
+         textarea {
+            padding: 1em 0.75em;
+            border-radius: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1.5px solid transparent;
+            color: inherit;
+            font: inherit;
 
-        &::placeholder {
-          color: rgb(122, 122, 122);
-        }
+            &::placeholder {
+               color: rgb(122, 122, 122);
+            }
 
-        &:focus {
-          outline: 2px solid var(--blue-500);
-        }
+            &:focus {
+               outline: 2px solid var(--blue-500);
+            }
+         }
+
+         > textarea {
+            min-height: 180px;
+         }
+
+         &[data-error] {
+            > input {
+               border-color: crimson;
+               // background-color: rgb(255, 225, 232) !important;
+            }
+            .form__error {
+               // background-color: crimson;
+               margin-top: -0.5rem;
+               color: crimson;
+            }
+         }
       }
 
-      > textarea {
-        min-height: 180px;
+      &__error {
+         // background-color: crimson;
+         margin-top: -0.5rem;
       }
 
-      &[data-error] {
-        > input {
-          border-color: crimson;
-          // background-color: rgb(255, 225, 232) !important;
-        }
-        .form__error {
-          // background-color: crimson;
-          margin-top: -0.5rem;
-          color: crimson;
-        }
-      }
-    }
+      &__send {
+         background-color: rgb(0, 0, 0);
+         color: white;
+         position: fixed;
+         inset: 0;
+         display: grid;
+         place-items: center;
+         opacity: 0;
+         pointer-events: none;
+         z-index: 100;
 
-    &__error {
-      // background-color: crimson;
-      margin-top: -0.5rem;
-    }
-  }
+         &.animation {
+            animation: send 4.5s;
+            pointer-events: auto;
+         }
+
+         @keyframes send {
+            50% {
+               opacity: 0.75;
+            }
+            100% {
+               opacity: 0;
+            }
+         }
+
+         > h2 {
+            width: min(20ch, 100%);
+            text-align: center;
+         }
+      }
+
+
+   }
 </style>
 
-<!-- <script is:inline src="https://www.google.com/recaptcha/api.js"></script> -->
-
 <script>
-  import { actions, isInputError } from "astro:actions";
+   import { actions, isInputError } from 'astro:actions';
+   import CanvaConfetti from 'canvas-confetti';
 
-  document.getElementById("numero")?.addEventListener("input", function (e) {
-    const $Element = e.target as HTMLInputElement;
-    let value = $Element.value.replace(/\D/g, ""); // Remover caracteres que no sean números
+   document.getElementById('numero')?.addEventListener('input', function (e) {
+      const $Element = e.target as HTMLInputElement;
+      let value = $Element.value.replace(/\D/g, ''); // Remover caracteres que no sean números
 
-    // Agrupar en bloques de 3 dígitos
-    let formattedValue = value.match(/.{1,3}/g)?.join(" ") || value;
+      // Agrupar en bloques de 3 dígitos
+      let formattedValue = value.match(/.{1,3}/g)?.join(' ') || value;
 
-    // Asignar el valor formateado al input
-    $Element.value = formattedValue;
-  });
+      // Asignar el valor formateado al input
+      $Element.value = formattedValue;
+   });
 
-  const form = document.querySelector("form");
-  // console.log(form);
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const { error, data } = await actions.newsletter(formData);
+   const form = document.querySelector('form');
+   // console.log(form);
+   form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
 
-    const $errorGroup =
-      document.querySelectorAll<HTMLInputElement>(`.form__group`);
-    $errorGroup.forEach((group) => {
-      const $formError = group?.querySelector(".form__error"); //
-      if ($formError) {
-        $formError.textContent = "";
-      }
-      group.removeAttribute("data-error");
-    });
+      const $BtnLoading = form.querySelector('#send-button') as HTMLElement;
+            $BtnLoading.classList.add('button--loading');
 
-    if (isInputError(error)) {
-      // Manejar errores de entrada.
-      const fieldsWithErrors = Object.entries(error.fields);
+      const { error, data } = await actions.newsletter(formData);
 
-      fieldsWithErrors.forEach(([field, messages]) => {
-        const message = messages.join(", ");
-        const $errorGroup = document.querySelector(
-          `.form__group[data-group="${field}"`
-        );
-        $errorGroup?.removeAttribute("data-error");
-        $errorGroup?.setAttribute("data-error", "");
-        const $formError = $errorGroup?.querySelector(".form__error"); //
-        if ($formError) {
-          $formError.textContent = message || "";
-        }
+      const $errorGroup = document.querySelectorAll<HTMLInputElement>(`.form__group`);
+      $errorGroup.forEach((group) => {
+         const $formError = group?.querySelector('.form__error'); //
+         if ($formError) {
+            $formError.textContent = '';
+         }
+         group.removeAttribute('data-error');
       });
-    } else {
-      form.reset();
-    }
-  });
+
+      if (isInputError(error)) {
+         // Manejar errores de entrada.
+         const fieldsWithErrors = Object.entries(error.fields);
+        console.log(error);
+         fieldsWithErrors.forEach(([field, messages]) => {
+            const message = messages.join(', ');
+            const $errorGroup = document.querySelector(`.form__group[data-group="${field}"`);
+            $errorGroup?.removeAttribute('data-error');
+            $errorGroup?.setAttribute('data-error', '');
+            const $formError = $errorGroup?.querySelector('.form__error'); //
+            if ($formError) {
+               $formError.textContent = message || '';
+            }
+         });
+      } else {
+
+         $BtnLoading.classList.remove('button--loading');
+
+         const $SendSucces = form.querySelector('.form__send') as HTMLElement;
+         $SendSucces.classList.add('animation');
+
+         for (let i = 0; i < 2; i++) {
+            setTimeout(() => {
+               CanvaConfetti({
+                  particleCount: 100,
+                  startVelocity: 45,
+                  decay: 0.9,
+                  gravity: 1,
+                  spread: 75,
+                  origin: {
+                     x: Math.random(),
+                     y: 0.5 + Math.random() * 0.5,
+                  },
+               });
+            }, i * 1000);
+         }
+
+         form.reset();
+         $SendSucces.addEventListener('animationend', function() {
+            this.classList.remove('animation');
+         });
+      }
+   });
 </script>
